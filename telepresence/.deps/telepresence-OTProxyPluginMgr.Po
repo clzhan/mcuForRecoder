@@ -1,0 +1,939 @@
+telepresence-OTProxyPluginMgr.o: source/OTProxyPluginMgr.cc \
+ include/opentelepresence/OTProxyPluginMgr.h \
+ include/OpenTelepresenceConfig.h \
+ /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stdint.h /usr/include/stdint.h \
+ /usr/include/features.h /usr/include/x86_64-linux-gnu/bits/predefs.h \
+ /usr/include/x86_64-linux-gnu/sys/cdefs.h \
+ /usr/include/x86_64-linux-gnu/bits/wordsize.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
+ /usr/include/x86_64-linux-gnu/bits/wchar.h /usr/include/stdlib.h \
+ /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stddef.h \
+ /usr/include/x86_64-linux-gnu/bits/waitflags.h \
+ /usr/include/x86_64-linux-gnu/bits/waitstatus.h /usr/include/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/byteswap.h /usr/include/xlocale.h \
+ /usr/include/x86_64-linux-gnu/sys/types.h \
+ /usr/include/x86_64-linux-gnu/bits/types.h \
+ /usr/include/x86_64-linux-gnu/bits/typesizes.h /usr/include/time.h \
+ /usr/include/x86_64-linux-gnu/sys/select.h \
+ /usr/include/x86_64-linux-gnu/bits/select.h \
+ /usr/include/x86_64-linux-gnu/bits/sigset.h \
+ /usr/include/x86_64-linux-gnu/bits/time.h \
+ /usr/include/x86_64-linux-gnu/bits/select2.h \
+ /usr/include/x86_64-linux-gnu/sys/sysmacros.h \
+ /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h /usr/include/alloca.h \
+ /usr/include/x86_64-linux-gnu/bits/stdlib.h config.h \
+ include/opentelepresence/OTProxyPlugin.h \
+ include/opentelepresence/OTObject.h \
+ /usr/local/include/tinysak/tsk_debug.h \
+ /usr/local/include/tinysak/tinysak_config.h /usr/include/string.h \
+ /usr/include/x86_64-linux-gnu/bits/string3.h \
+ /usr/lib/gcc/x86_64-linux-gnu/4.6/include/stdarg.h \
+ /usr/local/include/tinysak/tsk_common.h /usr/include/stdio.h \
+ /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
+ /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/sys_errlist.h \
+ /usr/include/x86_64-linux-gnu/bits/stdio.h \
+ /usr/include/x86_64-linux-gnu/bits/stdio2.h \
+ include/opentelepresence/OTCommon.h \
+ include/opentelepresence/OTSessionInfo.h \
+ include/opentelepresence/OTRole.h include/opentelepresence/OTCodec.h \
+ /usr/local/include/tinymedia/tinymedia/tmedia_codec.h \
+ /usr/local/include/tinymedia/tinymedia_config.h \
+ /usr/local/include/tinymedia/tinymedia/tmedia_common.h \
+ /usr/local/include/tinysak/tsk_plugin.h \
+ /usr/local/include/tinysak/tsk_object.h \
+ /usr/local/include/tinysak/tsk_object.h \
+ /usr/local/include/tinysak/tsk_list.h \
+ /usr/local/include/tinysak/tsk_mutex.h \
+ /usr/local/include/tinymedia/tinymedia/tmedia_common.h \
+ /usr/local/include/tinydav/tinydav/tdav.h \
+ /usr/local/include/tinydav/tinydav_config.h \
+ /usr/local/include/tinysak/tsk_common.h \
+ include/opentelepresence/OTBridgeInfo.h /usr/include/c++/4.6/string \
+ /usr/include/c++/4.6/x86_64-linux-gnu/./bits/c++config.h \
+ /usr/include/c++/4.6/x86_64-linux-gnu/./bits/os_defines.h \
+ /usr/include/c++/4.6/x86_64-linux-gnu/./bits/cpu_defines.h \
+ /usr/include/c++/4.6/bits/stringfwd.h \
+ /usr/include/c++/4.6/bits/char_traits.h \
+ /usr/include/c++/4.6/bits/stl_algobase.h \
+ /usr/include/c++/4.6/bits/functexcept.h \
+ /usr/include/c++/4.6/bits/exception_defines.h \
+ /usr/include/c++/4.6/bits/cpp_type_traits.h \
+ /usr/include/c++/4.6/ext/type_traits.h \
+ /usr/include/c++/4.6/ext/numeric_traits.h \
+ /usr/include/c++/4.6/bits/stl_pair.h /usr/include/c++/4.6/bits/move.h \
+ /usr/include/c++/4.6/bits/concept_check.h \
+ /usr/include/c++/4.6/bits/stl_iterator_base_types.h \
+ /usr/include/c++/4.6/bits/stl_iterator_base_funcs.h \
+ /usr/include/c++/4.6/bits/stl_iterator.h \
+ /usr/include/c++/4.6/debug/debug.h /usr/include/c++/4.6/bits/postypes.h \
+ /usr/include/c++/4.6/cwchar /usr/include/x86_64-linux-gnu/bits/wchar2.h \
+ /usr/include/c++/4.6/bits/allocator.h \
+ /usr/include/c++/4.6/x86_64-linux-gnu/./bits/c++allocator.h \
+ /usr/include/c++/4.6/ext/new_allocator.h /usr/include/c++/4.6/new \
+ /usr/include/c++/4.6/exception /usr/include/c++/4.6/bits/localefwd.h \
+ /usr/include/c++/4.6/x86_64-linux-gnu/./bits/c++locale.h \
+ /usr/include/c++/4.6/clocale /usr/include/locale.h \
+ /usr/include/x86_64-linux-gnu/bits/locale.h /usr/include/c++/4.6/iosfwd \
+ /usr/include/c++/4.6/cctype /usr/include/ctype.h \
+ /usr/include/c++/4.6/bits/ostream_insert.h \
+ /usr/include/c++/4.6/bits/cxxabi_forced.h \
+ /usr/include/c++/4.6/bits/stl_function.h \
+ /usr/include/c++/4.6/backward/binders.h \
+ /usr/include/c++/4.6/bits/range_access.h \
+ /usr/include/c++/4.6/bits/basic_string.h \
+ /usr/include/c++/4.6/ext/atomicity.h \
+ /usr/include/c++/4.6/x86_64-linux-gnu/./bits/gthr.h \
+ /usr/include/c++/4.6/x86_64-linux-gnu/./bits/gthr-default.h \
+ /usr/include/pthread.h /usr/include/sched.h \
+ /usr/include/x86_64-linux-gnu/bits/sched.h \
+ /usr/include/x86_64-linux-gnu/bits/timex.h \
+ /usr/include/x86_64-linux-gnu/bits/setjmp.h /usr/include/unistd.h \
+ /usr/include/x86_64-linux-gnu/bits/posix_opt.h \
+ /usr/include/x86_64-linux-gnu/bits/environments.h \
+ /usr/include/x86_64-linux-gnu/bits/confname.h /usr/include/getopt.h \
+ /usr/include/x86_64-linux-gnu/bits/unistd.h \
+ /usr/include/c++/4.6/x86_64-linux-gnu/./bits/atomic_word.h \
+ /usr/include/c++/4.6/initializer_list \
+ /usr/include/c++/4.6/bits/basic_string.tcc tinywrap/ProxyPluginMgr.h \
+ /usr/local/include/tinymedia/tinymedia.h \
+ /usr/local/include/tinymedia/tinymedia/tmedia_codec_dummy.h \
+ /usr/local/include/tinymedia/tinymedia/tmedia_codec.h \
+ /usr/local/include/tinymedia/tinymedia/tmedia_session_dummy.h \
+ /usr/local/include/tinymedia/tinymedia/tmedia_session.h \
+ /usr/local/include/tinymedia/tinymedia/tmedia_qos.h \
+ /usr/local/include/tinysdp/tinysdp/tsdp_message.h \
+ /usr/local/include/tinysdp/tinysdp_config.h \
+ /usr/local/include/tinysdp/tinysdp/headers/tsdp_header.h \
+ /usr/local/include/tinysak/tsk_ragel_state.h \
+ /usr/local/include/tinysak/tsk_params.h \
+ /usr/local/include/tinysak/tsk_list.h \
+ /usr/local/include/tinysak/tsk_buffer.h \
+ /usr/local/include/tinysdp/tinysdp/headers/tsdp_header_M.h \
+ /usr/local/include/tinysdp/tinysdp/headers/tsdp_header_A.h \
+ /usr/local/include/tinysdp/tinysdp/headers/tsdp_header_B.h \
+ /usr/local/include/tinysdp/tinysdp/headers/tsdp_header_C.h \
+ /usr/local/include/tinysdp/tinysdp/headers/tsdp_header_I.h \
+ /usr/local/include/tinysdp/tinysdp/headers/tsdp_header_K.h \
+ /usr/local/include/tinysak/tsk_string.h \
+ /usr/local/include/tinymedia/tinymedia/tmedia_params.h \
+ /usr/local/include/tinynet/tnet_nat.h \
+ /usr/local/include/tinynet/tinynet_config.h \
+ /usr/local/include/tinynet/tnet_socket.h \
+ /usr/local/include/tinynet/tnet_types.h \
+ /usr/include/x86_64-linux-gnu/sys/socket.h \
+ /usr/include/x86_64-linux-gnu/sys/uio.h \
+ /usr/include/x86_64-linux-gnu/bits/uio.h \
+ /usr/include/x86_64-linux-gnu/bits/socket.h \
+ /usr/include/x86_64-linux-gnu/bits/sockaddr.h \
+ /usr/include/x86_64-linux-gnu/asm/socket.h \
+ /usr/include/asm-generic/socket.h \
+ /usr/include/x86_64-linux-gnu/asm/sockios.h \
+ /usr/include/asm-generic/sockios.h \
+ /usr/include/x86_64-linux-gnu/bits/socket2.h /usr/include/netinet/in.h \
+ /usr/include/x86_64-linux-gnu/bits/in.h /usr/include/arpa/inet.h \
+ /usr/include/netdb.h /usr/include/rpc/netdb.h \
+ /usr/include/x86_64-linux-gnu/bits/siginfo.h \
+ /usr/include/x86_64-linux-gnu/bits/netdb.h /usr/include/fcntl.h \
+ /usr/include/x86_64-linux-gnu/bits/fcntl.h \
+ /usr/include/x86_64-linux-gnu/bits/stat.h \
+ /usr/include/x86_64-linux-gnu/bits/fcntl2.h \
+ /usr/include/x86_64-linux-gnu/sys/ioctl.h \
+ /usr/include/x86_64-linux-gnu/bits/ioctls.h \
+ /usr/include/x86_64-linux-gnu/asm/ioctls.h \
+ /usr/include/asm-generic/ioctls.h /usr/include/linux/ioctl.h \
+ /usr/include/x86_64-linux-gnu/asm/ioctl.h \
+ /usr/include/asm-generic/ioctl.h \
+ /usr/include/x86_64-linux-gnu/bits/ioctl-types.h \
+ /usr/include/x86_64-linux-gnu/sys/ttydefaults.h /usr/include/net/if.h \
+ /usr/local/include/tinysak/tsk_errno.h /usr/include/errno.h \
+ /usr/include/x86_64-linux-gnu/bits/errno.h /usr/include/linux/errno.h \
+ /usr/include/x86_64-linux-gnu/asm/errno.h \
+ /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
+ /usr/local/include/tinynet/tls/tnet_tls.h \
+ /usr/local/include/tinynet/tinynet_config.h \
+ /usr/local/include/tinynet/tnet_types.h \
+ /usr/local/include/tinynet/tls/tnet_dtls.h \
+ /usr/local/include/tinynet/stun/tnet_stun_types.h \
+ /usr/local/include/tinysak/tsk_safeobj.h \
+ /usr/local/include/tinymedia/tinymedia/tmedia_session_ghost.h \
+ /usr/local/include/tinymedia/tinymedia/tmedia_jitterbuffer.h \
+ /usr/local/include/tinymedia/tinymedia/tmedia_resampler.h \
+ /usr/local/include/tinymedia/tinymedia/tmedia_denoise.h \
+ /usr/local/include/tinysak/tsk_buffer.h \
+ /usr/local/include/tinymedia/tinymedia/tmedia_imageattr.h \
+ /usr/local/include/tinymedia/tinymedia/tmedia_consumer.h \
+ /usr/local/include/tinymedia/tinymedia/tmedia_producer.h \
+ /usr/local/include/tinymedia/tinymedia/tmedia_common.h \
+ /usr/local/include/tinymedia/tinymedia/tmedia_qos.h \
+ /usr/local/include/tinymedia/tinymedia/tmedia_defaults.h \
+ /usr/local/include/tinymedia/tinymedia/content/tmedia_content.h \
+ /usr/local/include/tinysak/tsk_params.h \
+ /usr/local/include/tinymedia/tinymedia/content/tmedia_content_cpim.h \
+ /usr/local/include/tinymedia/tinymedia/content/tmedia_content.h \
+ /usr/local/include/tinymedia/tinymedia/content/tmedia_content_multipart.h \
+ /usr/local/include/tinymedia/tinymedia/content/tmedia_content_sip_frag.h \
+ /usr/local/include/tinynet/tinynet.h /usr/local/include/tinysak/tsk.h \
+ /usr/local/include/tinysak/tsk_string.h \
+ /usr/local/include/tinysak/tsk_memory.h \
+ /usr/local/include/tinysak/tsk_url.h \
+ /usr/local/include/tinysak/tsk_plugin.h \
+ /usr/local/include/tinysak/tsk_options.h \
+ /usr/local/include/tinysak/tsk_fsm.h \
+ /usr/local/include/tinysak/tsk_safeobj.h \
+ /usr/local/include/tinysak/tsk_time.h \
+ /usr/local/include/tinysak/tsk_timer.h \
+ /usr/local/include/tinysak/tsk_condwait.h \
+ /usr/local/include/tinysak/tsk_semaphore.h \
+ /usr/local/include/tinysak/tsk_thread.h \
+ /usr/local/include/tinysak/tsk_runnable.h \
+ /usr/local/include/tinysak/tsk_debug.h \
+ /usr/local/include/tinysak/tsk_ppfcs16.h \
+ /usr/local/include/tinysak/tsk_sha1.h \
+ /usr/local/include/tinysak/tsk_md5.h \
+ /usr/local/include/tinysak/tsk_hmac.h \
+ /usr/local/include/tinysak/tsk_base64.h \
+ /usr/local/include/tinysak/tsk_uuid.h \
+ /usr/local/include/tinysak/tsk_ragel_state.h \
+ /usr/local/include/tinynet/tnet.h \
+ /usr/local/include/tinynet/tnet_endianness.h \
+ /usr/local/include/tinynet/tnet_nat.h \
+ /usr/local/include/tinynet/tnet_transport.h \
+ /usr/local/include/tinynet/tnet_utils.h \
+ /usr/local/include/tinysak/tsk_runnable.h \
+ /usr/local/include/tinynet/tnet_proxy_plugin.h \
+ /usr/local/include/tinynet/stun/tnet_stun.h \
+ /usr/local/include/tinynet/ice/tnet_ice_event.h \
+ /usr/local/include/tinynet/ice/tnet_ice_candidate.h \
+ /usr/local/include/tinynet/stun/tnet_stun_pkt.h \
+ /usr/local/include/tinynet/stun/tnet_stun_attr.h \
+ /usr/local/include/tinynet/stun/tnet_stun_types.h \
+ /usr/local/include/tinynet/stun/tnet_stun_utils.h \
+ /usr/local/include/tinynet/tnet_socket.h \
+ /usr/local/include/tinynet/ice/tnet_ice_ctx.h \
+ /usr/local/include/tinynet/dns/tnet_dns.h \
+ /usr/local/include/tinynet/dns/tnet_dns_message.h \
+ /usr/local/include/tinynet/dns/tnet_dns_rr.h \
+ /usr/local/include/tinynet/tnet_utils.h \
+ /usr/local/include/tinynet/dns/tnet_dns_naptr.h \
+ /usr/local/include/tinynet/dns/tnet_dns_regexp.h \
+ /usr/local/include/tinynet/dns/tnet_dns_resolvconf.h \
+ /usr/local/include/tinynet/dhcp/tnet_dhcp.h \
+ /usr/local/include/tinynet/dhcp/tnet_dhcp_message.h \
+ /usr/local/include/tinynet/dhcp/tnet_dhcp_option.h \
+ /usr/local/include/tinynet/tnet_hardwares.h \
+ /usr/local/include/tinynet/dhcp/tnet_dhcp_option_sip.h \
+ /usr/local/include/tinynet/dhcp6/tnet_dhcp6.h \
+ /usr/local/include/tinynet/dhcp6/tnet_dhcp6_message.h \
+ /usr/local/include/tinynet/dhcp6/tnet_dhcp6_option.h \
+ /usr/local/include/tinynet/dhcp6/tnet_dhcp6_duid.h \
+ /usr/local/include/tinynet/dhcp6/tnet_dhcp6_option.h \
+ /usr/local/include/tinysdp/tinysdp.h \
+ /usr/local/include/tinysdp/tinysdp/tsdp_message.h \
+ /usr/local/include/tinysdp/tinysdp/parsers/tsdp_parser_message.h \
+ /usr/local/include/tinysdp/tinysdp/headers/tsdp_header_A.h \
+ /usr/local/include/tinysdp/tinysdp/headers/tsdp_header_B.h \
+ /usr/local/include/tinysdp/tinysdp/headers/tsdp_header_C.h \
+ /usr/local/include/tinysdp/tinysdp/headers/tsdp_header_Dummy.h \
+ /usr/local/include/tinysdp/tinysdp/headers/tsdp_header_E.h \
+ /usr/local/include/tinysdp/tinysdp/headers/tsdp_header_I.h \
+ /usr/local/include/tinysdp/tinysdp/headers/tsdp_header_K.h \
+ /usr/local/include/tinysdp/tinysdp/headers/tsdp_header_M.h \
+ /usr/local/include/tinysdp/tinysdp/headers/tsdp_header_O.h \
+ /usr/local/include/tinysdp/tinysdp/headers/tsdp_header_P.h \
+ /usr/local/include/tinysdp/tinysdp/headers/tsdp_header_R.h \
+ /usr/local/include/tinysdp/tinysdp/headers/tsdp_header_S.h \
+ /usr/local/include/tinysdp/tinysdp/headers/tsdp_header_T.h \
+ /usr/local/include/tinysdp/tinysdp/headers/tsdp_header_R.h \
+ /usr/local/include/tinysdp/tinysdp/headers/tsdp_header_U.h \
+ /usr/local/include/tinysdp/tinysdp/headers/tsdp_header_V.h \
+ /usr/local/include/tinysdp/tinysdp/headers/tsdp_header_Z.h \
+ tinywrap/Common.h tinywrap/tinyWRAP_config.h tinywrap/../config.h \
+ /usr/local/include/tinysak/tsk_mutex.h /usr/include/c++/4.6/map \
+ /usr/include/c++/4.6/bits/stl_tree.h /usr/include/c++/4.6/bits/stl_map.h \
+ /usr/include/c++/4.6/bits/stl_multimap.h \
+ include/opentelepresence/OTProxyPluginConsumerAudio.h \
+ include/opentelepresence/OTProxyPluginConsumer.h \
+ include/opentelepresence/OTProxyPlugin.h tinywrap/ProxyConsumer.h \
+ tinywrap/ProxyPluginMgr.h \
+ /usr/local/include/tinymedia/tinymedia/tmedia_consumer.h \
+ /usr/local/include/tinydav/tinydav/audio/tdav_consumer_audio.h \
+ include/opentelepresence/OTProxyPluginConsumerVideo.h \
+ include/opentelepresence/OTFrameVideo.h \
+ include/opentelepresence/OTFrame.h \
+ include/opentelepresence/patterns/OTPattern.h \
+ include/opentelepresence/filters/OTOverlay.h \
+ include/opentelepresence/filters/OTFilter.h \
+ /usr/local/include/tinydav/tinydav/video/tdav_consumer_video.h \
+ include/opentelepresence/OTProxyPluginProducerAudio.h \
+ include/opentelepresence/OTProxyPluginProducer.h \
+ tinywrap/ProxyProducer.h \
+ /usr/local/include/tinymedia/tinymedia/tmedia_producer.h \
+ include/opentelepresence/OTFrameAudio.h \
+ /usr/local/include/tinysak/tsk_semaphore.h \
+ include/opentelepresence/OTProxyPluginProducerVideo.h \
+ include/opentelepresence/OTResampler.h tinywrap/MediaSessionMgr.h \
+ /usr/include/assert.h \
+ /usr/lib/gcc/x86_64-linux-gnu/4.6/include-fixed/limits.h \
+ /usr/lib/gcc/x86_64-linux-gnu/4.6/include-fixed/syslimits.h \
+ /usr/include/limits.h /usr/include/x86_64-linux-gnu/bits/posix1_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/local_lim.h \
+ /usr/include/linux/limits.h \
+ /usr/include/x86_64-linux-gnu/bits/posix2_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/xopen_lim.h
+
+include/opentelepresence/OTProxyPluginMgr.h:
+
+include/OpenTelepresenceConfig.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/4.6/include/stdint.h:
+
+/usr/include/stdint.h:
+
+/usr/include/features.h:
+
+/usr/include/x86_64-linux-gnu/bits/predefs.h:
+
+/usr/include/x86_64-linux-gnu/sys/cdefs.h:
+
+/usr/include/x86_64-linux-gnu/bits/wordsize.h:
+
+/usr/include/x86_64-linux-gnu/gnu/stubs.h:
+
+/usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
+
+/usr/include/x86_64-linux-gnu/bits/wchar.h:
+
+/usr/include/stdlib.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/4.6/include/stddef.h:
+
+/usr/include/x86_64-linux-gnu/bits/waitflags.h:
+
+/usr/include/x86_64-linux-gnu/bits/waitstatus.h:
+
+/usr/include/endian.h:
+
+/usr/include/x86_64-linux-gnu/bits/endian.h:
+
+/usr/include/x86_64-linux-gnu/bits/byteswap.h:
+
+/usr/include/xlocale.h:
+
+/usr/include/x86_64-linux-gnu/sys/types.h:
+
+/usr/include/x86_64-linux-gnu/bits/types.h:
+
+/usr/include/x86_64-linux-gnu/bits/typesizes.h:
+
+/usr/include/time.h:
+
+/usr/include/x86_64-linux-gnu/sys/select.h:
+
+/usr/include/x86_64-linux-gnu/bits/select.h:
+
+/usr/include/x86_64-linux-gnu/bits/sigset.h:
+
+/usr/include/x86_64-linux-gnu/bits/time.h:
+
+/usr/include/x86_64-linux-gnu/bits/select2.h:
+
+/usr/include/x86_64-linux-gnu/sys/sysmacros.h:
+
+/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h:
+
+/usr/include/alloca.h:
+
+/usr/include/x86_64-linux-gnu/bits/stdlib.h:
+
+config.h:
+
+include/opentelepresence/OTProxyPlugin.h:
+
+include/opentelepresence/OTObject.h:
+
+/usr/local/include/tinysak/tsk_debug.h:
+
+/usr/local/include/tinysak/tinysak_config.h:
+
+/usr/include/string.h:
+
+/usr/include/x86_64-linux-gnu/bits/string3.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/4.6/include/stdarg.h:
+
+/usr/local/include/tinysak/tsk_common.h:
+
+/usr/include/stdio.h:
+
+/usr/include/libio.h:
+
+/usr/include/_G_config.h:
+
+/usr/include/wchar.h:
+
+/usr/include/x86_64-linux-gnu/bits/stdio_lim.h:
+
+/usr/include/x86_64-linux-gnu/bits/sys_errlist.h:
+
+/usr/include/x86_64-linux-gnu/bits/stdio.h:
+
+/usr/include/x86_64-linux-gnu/bits/stdio2.h:
+
+include/opentelepresence/OTCommon.h:
+
+include/opentelepresence/OTSessionInfo.h:
+
+include/opentelepresence/OTRole.h:
+
+include/opentelepresence/OTCodec.h:
+
+/usr/local/include/tinymedia/tinymedia/tmedia_codec.h:
+
+/usr/local/include/tinymedia/tinymedia_config.h:
+
+/usr/local/include/tinymedia/tinymedia/tmedia_common.h:
+
+/usr/local/include/tinysak/tsk_plugin.h:
+
+/usr/local/include/tinysak/tsk_object.h:
+
+/usr/local/include/tinysak/tsk_object.h:
+
+/usr/local/include/tinysak/tsk_list.h:
+
+/usr/local/include/tinysak/tsk_mutex.h:
+
+/usr/local/include/tinymedia/tinymedia/tmedia_common.h:
+
+/usr/local/include/tinydav/tinydav/tdav.h:
+
+/usr/local/include/tinydav/tinydav_config.h:
+
+/usr/local/include/tinysak/tsk_common.h:
+
+include/opentelepresence/OTBridgeInfo.h:
+
+/usr/include/c++/4.6/string:
+
+/usr/include/c++/4.6/x86_64-linux-gnu/./bits/c++config.h:
+
+/usr/include/c++/4.6/x86_64-linux-gnu/./bits/os_defines.h:
+
+/usr/include/c++/4.6/x86_64-linux-gnu/./bits/cpu_defines.h:
+
+/usr/include/c++/4.6/bits/stringfwd.h:
+
+/usr/include/c++/4.6/bits/char_traits.h:
+
+/usr/include/c++/4.6/bits/stl_algobase.h:
+
+/usr/include/c++/4.6/bits/functexcept.h:
+
+/usr/include/c++/4.6/bits/exception_defines.h:
+
+/usr/include/c++/4.6/bits/cpp_type_traits.h:
+
+/usr/include/c++/4.6/ext/type_traits.h:
+
+/usr/include/c++/4.6/ext/numeric_traits.h:
+
+/usr/include/c++/4.6/bits/stl_pair.h:
+
+/usr/include/c++/4.6/bits/move.h:
+
+/usr/include/c++/4.6/bits/concept_check.h:
+
+/usr/include/c++/4.6/bits/stl_iterator_base_types.h:
+
+/usr/include/c++/4.6/bits/stl_iterator_base_funcs.h:
+
+/usr/include/c++/4.6/bits/stl_iterator.h:
+
+/usr/include/c++/4.6/debug/debug.h:
+
+/usr/include/c++/4.6/bits/postypes.h:
+
+/usr/include/c++/4.6/cwchar:
+
+/usr/include/x86_64-linux-gnu/bits/wchar2.h:
+
+/usr/include/c++/4.6/bits/allocator.h:
+
+/usr/include/c++/4.6/x86_64-linux-gnu/./bits/c++allocator.h:
+
+/usr/include/c++/4.6/ext/new_allocator.h:
+
+/usr/include/c++/4.6/new:
+
+/usr/include/c++/4.6/exception:
+
+/usr/include/c++/4.6/bits/localefwd.h:
+
+/usr/include/c++/4.6/x86_64-linux-gnu/./bits/c++locale.h:
+
+/usr/include/c++/4.6/clocale:
+
+/usr/include/locale.h:
+
+/usr/include/x86_64-linux-gnu/bits/locale.h:
+
+/usr/include/c++/4.6/iosfwd:
+
+/usr/include/c++/4.6/cctype:
+
+/usr/include/ctype.h:
+
+/usr/include/c++/4.6/bits/ostream_insert.h:
+
+/usr/include/c++/4.6/bits/cxxabi_forced.h:
+
+/usr/include/c++/4.6/bits/stl_function.h:
+
+/usr/include/c++/4.6/backward/binders.h:
+
+/usr/include/c++/4.6/bits/range_access.h:
+
+/usr/include/c++/4.6/bits/basic_string.h:
+
+/usr/include/c++/4.6/ext/atomicity.h:
+
+/usr/include/c++/4.6/x86_64-linux-gnu/./bits/gthr.h:
+
+/usr/include/c++/4.6/x86_64-linux-gnu/./bits/gthr-default.h:
+
+/usr/include/pthread.h:
+
+/usr/include/sched.h:
+
+/usr/include/x86_64-linux-gnu/bits/sched.h:
+
+/usr/include/x86_64-linux-gnu/bits/timex.h:
+
+/usr/include/x86_64-linux-gnu/bits/setjmp.h:
+
+/usr/include/unistd.h:
+
+/usr/include/x86_64-linux-gnu/bits/posix_opt.h:
+
+/usr/include/x86_64-linux-gnu/bits/environments.h:
+
+/usr/include/x86_64-linux-gnu/bits/confname.h:
+
+/usr/include/getopt.h:
+
+/usr/include/x86_64-linux-gnu/bits/unistd.h:
+
+/usr/include/c++/4.6/x86_64-linux-gnu/./bits/atomic_word.h:
+
+/usr/include/c++/4.6/initializer_list:
+
+/usr/include/c++/4.6/bits/basic_string.tcc:
+
+tinywrap/ProxyPluginMgr.h:
+
+/usr/local/include/tinymedia/tinymedia.h:
+
+/usr/local/include/tinymedia/tinymedia/tmedia_codec_dummy.h:
+
+/usr/local/include/tinymedia/tinymedia/tmedia_codec.h:
+
+/usr/local/include/tinymedia/tinymedia/tmedia_session_dummy.h:
+
+/usr/local/include/tinymedia/tinymedia/tmedia_session.h:
+
+/usr/local/include/tinymedia/tinymedia/tmedia_qos.h:
+
+/usr/local/include/tinysdp/tinysdp/tsdp_message.h:
+
+/usr/local/include/tinysdp/tinysdp_config.h:
+
+/usr/local/include/tinysdp/tinysdp/headers/tsdp_header.h:
+
+/usr/local/include/tinysak/tsk_ragel_state.h:
+
+/usr/local/include/tinysak/tsk_params.h:
+
+/usr/local/include/tinysak/tsk_list.h:
+
+/usr/local/include/tinysak/tsk_buffer.h:
+
+/usr/local/include/tinysdp/tinysdp/headers/tsdp_header_M.h:
+
+/usr/local/include/tinysdp/tinysdp/headers/tsdp_header_A.h:
+
+/usr/local/include/tinysdp/tinysdp/headers/tsdp_header_B.h:
+
+/usr/local/include/tinysdp/tinysdp/headers/tsdp_header_C.h:
+
+/usr/local/include/tinysdp/tinysdp/headers/tsdp_header_I.h:
+
+/usr/local/include/tinysdp/tinysdp/headers/tsdp_header_K.h:
+
+/usr/local/include/tinysak/tsk_string.h:
+
+/usr/local/include/tinymedia/tinymedia/tmedia_params.h:
+
+/usr/local/include/tinynet/tnet_nat.h:
+
+/usr/local/include/tinynet/tinynet_config.h:
+
+/usr/local/include/tinynet/tnet_socket.h:
+
+/usr/local/include/tinynet/tnet_types.h:
+
+/usr/include/x86_64-linux-gnu/sys/socket.h:
+
+/usr/include/x86_64-linux-gnu/sys/uio.h:
+
+/usr/include/x86_64-linux-gnu/bits/uio.h:
+
+/usr/include/x86_64-linux-gnu/bits/socket.h:
+
+/usr/include/x86_64-linux-gnu/bits/sockaddr.h:
+
+/usr/include/x86_64-linux-gnu/asm/socket.h:
+
+/usr/include/asm-generic/socket.h:
+
+/usr/include/x86_64-linux-gnu/asm/sockios.h:
+
+/usr/include/asm-generic/sockios.h:
+
+/usr/include/x86_64-linux-gnu/bits/socket2.h:
+
+/usr/include/netinet/in.h:
+
+/usr/include/x86_64-linux-gnu/bits/in.h:
+
+/usr/include/arpa/inet.h:
+
+/usr/include/netdb.h:
+
+/usr/include/rpc/netdb.h:
+
+/usr/include/x86_64-linux-gnu/bits/siginfo.h:
+
+/usr/include/x86_64-linux-gnu/bits/netdb.h:
+
+/usr/include/fcntl.h:
+
+/usr/include/x86_64-linux-gnu/bits/fcntl.h:
+
+/usr/include/x86_64-linux-gnu/bits/stat.h:
+
+/usr/include/x86_64-linux-gnu/bits/fcntl2.h:
+
+/usr/include/x86_64-linux-gnu/sys/ioctl.h:
+
+/usr/include/x86_64-linux-gnu/bits/ioctls.h:
+
+/usr/include/x86_64-linux-gnu/asm/ioctls.h:
+
+/usr/include/asm-generic/ioctls.h:
+
+/usr/include/linux/ioctl.h:
+
+/usr/include/x86_64-linux-gnu/asm/ioctl.h:
+
+/usr/include/asm-generic/ioctl.h:
+
+/usr/include/x86_64-linux-gnu/bits/ioctl-types.h:
+
+/usr/include/x86_64-linux-gnu/sys/ttydefaults.h:
+
+/usr/include/net/if.h:
+
+/usr/local/include/tinysak/tsk_errno.h:
+
+/usr/include/errno.h:
+
+/usr/include/x86_64-linux-gnu/bits/errno.h:
+
+/usr/include/linux/errno.h:
+
+/usr/include/x86_64-linux-gnu/asm/errno.h:
+
+/usr/include/asm-generic/errno.h:
+
+/usr/include/asm-generic/errno-base.h:
+
+/usr/local/include/tinynet/tls/tnet_tls.h:
+
+/usr/local/include/tinynet/tinynet_config.h:
+
+/usr/local/include/tinynet/tnet_types.h:
+
+/usr/local/include/tinynet/tls/tnet_dtls.h:
+
+/usr/local/include/tinynet/stun/tnet_stun_types.h:
+
+/usr/local/include/tinysak/tsk_safeobj.h:
+
+/usr/local/include/tinymedia/tinymedia/tmedia_session_ghost.h:
+
+/usr/local/include/tinymedia/tinymedia/tmedia_jitterbuffer.h:
+
+/usr/local/include/tinymedia/tinymedia/tmedia_resampler.h:
+
+/usr/local/include/tinymedia/tinymedia/tmedia_denoise.h:
+
+/usr/local/include/tinysak/tsk_buffer.h:
+
+/usr/local/include/tinymedia/tinymedia/tmedia_imageattr.h:
+
+/usr/local/include/tinymedia/tinymedia/tmedia_consumer.h:
+
+/usr/local/include/tinymedia/tinymedia/tmedia_producer.h:
+
+/usr/local/include/tinymedia/tinymedia/tmedia_common.h:
+
+/usr/local/include/tinymedia/tinymedia/tmedia_qos.h:
+
+/usr/local/include/tinymedia/tinymedia/tmedia_defaults.h:
+
+/usr/local/include/tinymedia/tinymedia/content/tmedia_content.h:
+
+/usr/local/include/tinysak/tsk_params.h:
+
+/usr/local/include/tinymedia/tinymedia/content/tmedia_content_cpim.h:
+
+/usr/local/include/tinymedia/tinymedia/content/tmedia_content.h:
+
+/usr/local/include/tinymedia/tinymedia/content/tmedia_content_multipart.h:
+
+/usr/local/include/tinymedia/tinymedia/content/tmedia_content_sip_frag.h:
+
+/usr/local/include/tinynet/tinynet.h:
+
+/usr/local/include/tinysak/tsk.h:
+
+/usr/local/include/tinysak/tsk_string.h:
+
+/usr/local/include/tinysak/tsk_memory.h:
+
+/usr/local/include/tinysak/tsk_url.h:
+
+/usr/local/include/tinysak/tsk_plugin.h:
+
+/usr/local/include/tinysak/tsk_options.h:
+
+/usr/local/include/tinysak/tsk_fsm.h:
+
+/usr/local/include/tinysak/tsk_safeobj.h:
+
+/usr/local/include/tinysak/tsk_time.h:
+
+/usr/local/include/tinysak/tsk_timer.h:
+
+/usr/local/include/tinysak/tsk_condwait.h:
+
+/usr/local/include/tinysak/tsk_semaphore.h:
+
+/usr/local/include/tinysak/tsk_thread.h:
+
+/usr/local/include/tinysak/tsk_runnable.h:
+
+/usr/local/include/tinysak/tsk_debug.h:
+
+/usr/local/include/tinysak/tsk_ppfcs16.h:
+
+/usr/local/include/tinysak/tsk_sha1.h:
+
+/usr/local/include/tinysak/tsk_md5.h:
+
+/usr/local/include/tinysak/tsk_hmac.h:
+
+/usr/local/include/tinysak/tsk_base64.h:
+
+/usr/local/include/tinysak/tsk_uuid.h:
+
+/usr/local/include/tinysak/tsk_ragel_state.h:
+
+/usr/local/include/tinynet/tnet.h:
+
+/usr/local/include/tinynet/tnet_endianness.h:
+
+/usr/local/include/tinynet/tnet_nat.h:
+
+/usr/local/include/tinynet/tnet_transport.h:
+
+/usr/local/include/tinynet/tnet_utils.h:
+
+/usr/local/include/tinysak/tsk_runnable.h:
+
+/usr/local/include/tinynet/tnet_proxy_plugin.h:
+
+/usr/local/include/tinynet/stun/tnet_stun.h:
+
+/usr/local/include/tinynet/ice/tnet_ice_event.h:
+
+/usr/local/include/tinynet/ice/tnet_ice_candidate.h:
+
+/usr/local/include/tinynet/stun/tnet_stun_pkt.h:
+
+/usr/local/include/tinynet/stun/tnet_stun_attr.h:
+
+/usr/local/include/tinynet/stun/tnet_stun_types.h:
+
+/usr/local/include/tinynet/stun/tnet_stun_utils.h:
+
+/usr/local/include/tinynet/tnet_socket.h:
+
+/usr/local/include/tinynet/ice/tnet_ice_ctx.h:
+
+/usr/local/include/tinynet/dns/tnet_dns.h:
+
+/usr/local/include/tinynet/dns/tnet_dns_message.h:
+
+/usr/local/include/tinynet/dns/tnet_dns_rr.h:
+
+/usr/local/include/tinynet/tnet_utils.h:
+
+/usr/local/include/tinynet/dns/tnet_dns_naptr.h:
+
+/usr/local/include/tinynet/dns/tnet_dns_regexp.h:
+
+/usr/local/include/tinynet/dns/tnet_dns_resolvconf.h:
+
+/usr/local/include/tinynet/dhcp/tnet_dhcp.h:
+
+/usr/local/include/tinynet/dhcp/tnet_dhcp_message.h:
+
+/usr/local/include/tinynet/dhcp/tnet_dhcp_option.h:
+
+/usr/local/include/tinynet/tnet_hardwares.h:
+
+/usr/local/include/tinynet/dhcp/tnet_dhcp_option_sip.h:
+
+/usr/local/include/tinynet/dhcp6/tnet_dhcp6.h:
+
+/usr/local/include/tinynet/dhcp6/tnet_dhcp6_message.h:
+
+/usr/local/include/tinynet/dhcp6/tnet_dhcp6_option.h:
+
+/usr/local/include/tinynet/dhcp6/tnet_dhcp6_duid.h:
+
+/usr/local/include/tinynet/dhcp6/tnet_dhcp6_option.h:
+
+/usr/local/include/tinysdp/tinysdp.h:
+
+/usr/local/include/tinysdp/tinysdp/tsdp_message.h:
+
+/usr/local/include/tinysdp/tinysdp/parsers/tsdp_parser_message.h:
+
+/usr/local/include/tinysdp/tinysdp/headers/tsdp_header_A.h:
+
+/usr/local/include/tinysdp/tinysdp/headers/tsdp_header_B.h:
+
+/usr/local/include/tinysdp/tinysdp/headers/tsdp_header_C.h:
+
+/usr/local/include/tinysdp/tinysdp/headers/tsdp_header_Dummy.h:
+
+/usr/local/include/tinysdp/tinysdp/headers/tsdp_header_E.h:
+
+/usr/local/include/tinysdp/tinysdp/headers/tsdp_header_I.h:
+
+/usr/local/include/tinysdp/tinysdp/headers/tsdp_header_K.h:
+
+/usr/local/include/tinysdp/tinysdp/headers/tsdp_header_M.h:
+
+/usr/local/include/tinysdp/tinysdp/headers/tsdp_header_O.h:
+
+/usr/local/include/tinysdp/tinysdp/headers/tsdp_header_P.h:
+
+/usr/local/include/tinysdp/tinysdp/headers/tsdp_header_R.h:
+
+/usr/local/include/tinysdp/tinysdp/headers/tsdp_header_S.h:
+
+/usr/local/include/tinysdp/tinysdp/headers/tsdp_header_T.h:
+
+/usr/local/include/tinysdp/tinysdp/headers/tsdp_header_R.h:
+
+/usr/local/include/tinysdp/tinysdp/headers/tsdp_header_U.h:
+
+/usr/local/include/tinysdp/tinysdp/headers/tsdp_header_V.h:
+
+/usr/local/include/tinysdp/tinysdp/headers/tsdp_header_Z.h:
+
+tinywrap/Common.h:
+
+tinywrap/tinyWRAP_config.h:
+
+tinywrap/../config.h:
+
+/usr/local/include/tinysak/tsk_mutex.h:
+
+/usr/include/c++/4.6/map:
+
+/usr/include/c++/4.6/bits/stl_tree.h:
+
+/usr/include/c++/4.6/bits/stl_map.h:
+
+/usr/include/c++/4.6/bits/stl_multimap.h:
+
+include/opentelepresence/OTProxyPluginConsumerAudio.h:
+
+include/opentelepresence/OTProxyPluginConsumer.h:
+
+include/opentelepresence/OTProxyPlugin.h:
+
+tinywrap/ProxyConsumer.h:
+
+tinywrap/ProxyPluginMgr.h:
+
+/usr/local/include/tinymedia/tinymedia/tmedia_consumer.h:
+
+/usr/local/include/tinydav/tinydav/audio/tdav_consumer_audio.h:
+
+include/opentelepresence/OTProxyPluginConsumerVideo.h:
+
+include/opentelepresence/OTFrameVideo.h:
+
+include/opentelepresence/OTFrame.h:
+
+include/opentelepresence/patterns/OTPattern.h:
+
+include/opentelepresence/filters/OTOverlay.h:
+
+include/opentelepresence/filters/OTFilter.h:
+
+/usr/local/include/tinydav/tinydav/video/tdav_consumer_video.h:
+
+include/opentelepresence/OTProxyPluginProducerAudio.h:
+
+include/opentelepresence/OTProxyPluginProducer.h:
+
+tinywrap/ProxyProducer.h:
+
+/usr/local/include/tinymedia/tinymedia/tmedia_producer.h:
+
+include/opentelepresence/OTFrameAudio.h:
+
+/usr/local/include/tinysak/tsk_semaphore.h:
+
+include/opentelepresence/OTProxyPluginProducerVideo.h:
+
+include/opentelepresence/OTResampler.h:
+
+tinywrap/MediaSessionMgr.h:
+
+/usr/include/assert.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/4.6/include-fixed/limits.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/4.6/include-fixed/syslimits.h:
+
+/usr/include/limits.h:
+
+/usr/include/x86_64-linux-gnu/bits/posix1_lim.h:
+
+/usr/include/x86_64-linux-gnu/bits/local_lim.h:
+
+/usr/include/linux/limits.h:
+
+/usr/include/x86_64-linux-gnu/bits/posix2_lim.h:
+
+/usr/include/x86_64-linux-gnu/bits/xopen_lim.h:
