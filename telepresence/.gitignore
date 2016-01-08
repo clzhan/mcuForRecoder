@@ -1,0 +1,10 @@
+*.mp4
+*.h264
+*.o
+*.txt
+.deps
+config*
+*.swp
+autom4te*
+Makefile
+
