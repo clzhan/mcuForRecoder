@@ -1,0 +1,14 @@
+*.mp4
+*.h264
+*.o
+*.txt
+.deps
+config*
+*.swp
+autom4te*
+Makefile
+autom4te.cache/traces.0
+ffplay
+*.flv
+!sdl
+
