@@ -9,6 +9,48 @@
 #include "opentelepresence/OTMixerMgrVideo.h"
 
 #include <assert.h>
+#include <time.h>
+#include <sstream>
+#include <sys/stat.h>
+#include <sys/types.h>
+
+
+static std::string int2str(int i) {
+
+	std::stringstream ss;
+	ss << i;
+	return ss.str();
+
+}
+static int create_multi_dir(const char *path)
+{
+	int i, len;
+	len = strlen(path);
+	char dir_path[len+1];
+	dir_path[len] = '\0';
+
+	strncpy(dir_path, path, len);
+
+	for (i=0; i<len; i++)
+	{
+		if (dir_path[i] == '/' && i > 0)
+		{
+			dir_path[i]='\0';
+			if (access(dir_path, F_OK) < 0)
+			{
+				if (mkdir(dir_path, 0755) < 0)
+				{
+					printf("mkdir=%s:msg=%s\n", dir_path, strerror(errno));
+					return -1;
+				}
+			}
+			dir_path[i]='/';
+		}
+	}
+
+	return 0;
+}
+
 
 OTMixerMgrMgr::OTMixerMgrMgr(OTMediaType_t eMediaType, OTObjectWrapper<OTBridgeInfo*> oBridgeInfo)
 :OTObject()
@@ -20,11 +62,39 @@ OTMixerMgrMgr::OTMixerMgrMgr(OTMediaType_t eMediaType, OTObjectWrapper<OTBridgeI
 	// create recorder if enabled
 	if(oBridgeInfo->isRecordEnabled())
 	{
+
+
+		// get 120100's sm4key and sm2key or use default key
+		
+
+
+
+		//mkdir /mnt/2016/1/9/120100/
+
+		time_t tt = time(NULL);
+		tm* t= localtime(&tt);
+
+		std::string year = int2str(t->tm_year + 1900);
+		std::string month = int2str(t->tm_mon + 1);
+		std::string day = int2str(t->tm_mday);
+
+		std::string filePath(oBridgeInfo->getRecordFilePath() + oBridgeInfo->getFromId() + "/" + year + "/" + month + "/" + day + "/");
+
+		create_multi_dir(filePath.data());
+
+		// set /mnt/2016/1/9/120100/id.mp4
+
+		std::string strRecordFile(filePath + oBridgeInfo->getId() + "." + oBridgeInfo->getRecordFileExt());
+
+		printf("strRecordFile = %s \n", strRecordFile.data());
+
+		//new  recoder
+
+		m_oRecorder = OTRecorder::New(strRecordFile, eMediaType);
+
 		printf("from id = %s\n", oBridgeInfo->getFromId().data());
 		printf("id = %s\n", oBridgeInfo->getId().data());
-		//exit(0);
-		std::string strRecordFile(oBridgeInfo->getId() + "." + oBridgeInfo->getRecordFileExt());
-		m_oRecorder = OTRecorder::New(strRecordFile, eMediaType);
+		//std::string strRecordFile(oBridgeInfo->getRecordFilePath() + oBridgeInfo->getId() + "." + oBridgeInfo->getRecordFileExt());
 	}
 
 	if(m_eMediaType & OTMediaType_Audio)

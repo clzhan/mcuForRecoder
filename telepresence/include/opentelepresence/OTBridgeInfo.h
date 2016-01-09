@@ -56,6 +56,8 @@ public:
 	OT_INLINE OTDimension_t getVideoDimension(){ return m_eVideoDim; }
 
 	OT_INLINE std::string getRecordFileExt(){ return m_strRecordFileExt; }
+	// get record path
+	OT_INLINE std::string getRecordFilePath(){ return m_strRecordFilePath; }
 
 	OT_INLINE uint16_t getAudioBitsPerSample(){ return m_nAudioBitsPerSample; }
 	OT_INLINE uint16_t getAudioChannels(){ return m_nAudioChannels; }
@@ -83,7 +85,7 @@ public:
 
 private:
 	uint64_t m_uEngineId;
-	std::string m_strBridgeId, m_fromBridgeId,m_strRecordFileExt;
+	std::string m_strBridgeId, m_fromBridgeId, m_strRecordFileExt , m_strRecordFilePath;
 	uint64_t m_nSpeakerSipSessionId;
 	bool m_bRecord;
 	uint32_t m_nVideoWidth;

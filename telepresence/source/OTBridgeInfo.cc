@@ -17,6 +17,7 @@ OTBridgeInfo::OTBridgeInfo(std::string strId,std::string fromId,OTObjectWrapper<
 , m_nSpeakerSipSessionId(0)
 , m_bRecord(oEngineInfo->m_bRecordEnabled)
 , m_strRecordFileExt(oEngineInfo->m_strRecordFileExt)
+, m_strRecordFilePath(oEngineInfo->m_strRecordFilePath)
 , m_nVideoWidth(oEngineInfo->m_nMixedVideoWidth)
 , m_nVideoHeight(oEngineInfo->m_nMixedVideoHeight)
 , m_parSpeaker(oEngineInfo->m_parSpeaker)

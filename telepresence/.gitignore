@@ -8,4 +8,5 @@ config*
 autom4te*
 Makefile
 autom4te.cache/traces.0
+.dep
 
