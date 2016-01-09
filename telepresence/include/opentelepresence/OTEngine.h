@@ -29,6 +29,7 @@ public:
 		, m_bAcceptIncomingSipReg(OPENTELEPRESENCE_ACCEPT_INCOMING_SIPREG)
 		, m_bRecordEnabled(OPENTELEPRESENCE_RECORD_ENABLED)
 		, m_strRecordFileExt(OPENTELEPRESENCE_RECORD_FILE_EXT)
+		, m_strRecordFilePath(OPENTELEPRESENCE_RECORD_FILE_PATH)
 		, m_nMixedVideoWidth(OPENTELEPRESENCE_VIDEO_WIDTH_DEFAULT)
 		, m_nMixedVideoHeight(OPENTELEPRESENCE_VIDEO_HEIGHT_DEFAULT)
 		, m_nVideoMotionRank(OPENTELEPRESENCE_VIDEO_MOTION_RANK_DEFAULT)
@@ -77,6 +78,7 @@ private:
 	OTRatio_t m_parSpeaker, m_parListener;
 	size_t m_nVideoMotionRank, m_nVideoFps;
 	std::string m_strRecordFileExt;
+	std::string m_strRecordFilePath; //设置的文件路径
 	std::string m_strOverlayFontsFolderPath, m_strOverlayCopyrightText, m_strOverlayWatermarkImagePath, m_strOverlayCopyrightFontFileName, m_strOverlaySpeakerNameFontFileName;
 	size_t m_nOverlayCopyrightFontSize, m_nOverlaySpeakerNameFontSize;
 	bool m_bOverlayDisplaySpeakerName, m_bOverlayDisplaySpeakerJobTitle;
@@ -142,6 +144,7 @@ public:
 	virtual bool setAudioLoopback(bool bLoopback);
 	virtual bool setRecordEnabled(bool bEnabled);
 	virtual bool setRecordFileExt(std::string strRecordFileExt);
+	virtual bool setRecordFilePath(std::string strRecordFilePath);
 	virtual bool setCodecs(const char* pcCodecs);
 	virtual bool setCodecOpusMaxRates(int32_t nPlaybackMaxRate, int32_t nCaptureMaxRate);
 	virtual bool setOverlayFontsFolderPath(std::string strPath);

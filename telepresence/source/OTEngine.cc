@@ -556,6 +556,16 @@ bool OTEngine::setRecordFileExt(std::string strRecordFileExt)
 	}
 	return false;
 }
+// add Path set mp4 recorder path
+bool OTEngine::setRecordFilePath(std::string strRecordFilePath)
+{
+	if(!strRecordFilePath.empty())
+	{
+		m_oInfo->m_strRecordFilePath = strRecordFilePath;
+		return true;
+	}
+	return false;
+}
 
 bool OTEngine::setCodecs(const char* pcCodecs)
 {
@@ -1016,6 +1026,13 @@ bool OTEngine::setConfFile(const char* pcConfFileFullPath)
 					if(!setRecordFileExt(pcParamValue))
 					{
 						OT_DEBUG_ERROR_EX(kOTMobuleNameCfg, "Failed to set 'record-file-ext': %s", pcParamValue);
+					}
+				}
+				else if(tsk_striequals("record-file-path", pcParamName))
+				{
+					if(!setRecordFilePath(pcParamValue))
+					{
+						OT_DEBUG_ERROR_EX(kOTMobuleNameCfg, "Failed to set 'record-file-path': %s", pcParamValue);
 					}
 				}
 				else if(tsk_striequals("overlay-fonts-folder-path", pcParamName))

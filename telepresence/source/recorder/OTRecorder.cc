@@ -194,7 +194,6 @@ private:
 	std::string Sm4Key;
 	std::string Sm2PublicKey;
 	uint8_t *Sm4Buffer;
-	uint8_t *Sm4Buffer2;
 	int Sm4Buffer_len;
 	FILE * fp_clzhan;
 
@@ -307,11 +306,6 @@ OTRecorderFFmpeg::OTRecorderFFmpeg(std::string strFilePath, OTMediaType_t eMedia
 	}
 	Sm4Buffer_len  = FRAME_BUFFER_SIZE;
 
-	if(!(Sm4Buffer2 = (uint8_t*)av_malloc(FRAME_BUFFER_SIZE)))
-	{
-		OT_DEBUG_ERROR_EX(kOTMobuleNameFFmpegRecorder, "Failed to allocate buffer with size = %d", FRAME_BUFFER_SIZE);
-		return;
-	}
 
 
 	// Create FFmpeg format context
@@ -482,13 +476,18 @@ int OTRecorderFFmpeg::PutVideoDataSM4ToStream(uint8_t * buffer, int size, int st
 		
 	av_init_packet(&pkt);
 
-	size_t encrypt_output_len;
-	size_t decrypt_output_length = 0;
-
-	memset(Sm4Buffer, 0, Sm4Buffer_len);
-	memset(Sm4Buffer2, 0, Sm4Buffer_len);
 
 	//fprintf(fp_clzhan, "%d\n ", size);
+
+	//for(int i = 0; i < size; i ++)
+	//{    
+		////printf("%02x ", pkt.data[i]);
+		//fprintf(fp_clzhan, "%02x ", buffer[i]);
+	//}
+	////printf("\n\n");
+	//fprintf(fp_clzhan,"\n\n");
+
+	//fprintf(fp_clzhan, "org: %d\n ", size);
 
 	//for(int i = 0; i < size; i ++)
 	//{    
@@ -502,7 +501,6 @@ int OTRecorderFFmpeg::PutVideoDataSM4ToStream(uint8_t * buffer, int size, int st
 	{
 		if(buffer[0] == 0x00 && buffer[1] == 0x00 && buffer[2] == 0x01)
 		{
-			printf("key = %s \n", Sm4Key.data());
 
 			//fprintf(fp_clzhan, "%d\n ", size);
 			//for(int i = 0; i < size ; i ++)
@@ -514,17 +512,42 @@ int OTRecorderFFmpeg::PutVideoDataSM4ToStream(uint8_t * buffer, int size, int st
 			//fprintf(fp_clzhan,"\n\n");
 
 			//fwrite(buffer, 1, size, fp_clzhan);
+			size_t encrypt_output_len = 0;
+
+			memset(Sm4Buffer, 0, Sm4Buffer_len);
 
 			unsigned char key[] = "01234567890abcef";
 			if (0 != EncryptSM4(key, buffer + 7, size - 7, Sm4Buffer + 7, &encrypt_output_len))
 			{   
 				OT_DEBUG_ERROR_EX(kOTMobuleNameFFmpegRecorder, "EncryptSM4 error, buff_password:%s\n", Sm4Key.data());
+				exit(0);
 				return -1;
 			}  
 			for(int i =0; i < 7;i++)
 			{
 				Sm4Buffer[i] = buffer[i];
 			}
+			pkt.size = (int)encrypt_output_len + 7;
+
+
+			for(int i = 7; (i + 4) < pkt.size; i ++)
+			{
+				if(Sm4Buffer[i] == 0x00  && Sm4Buffer[i + 1] == 0x00 && Sm4Buffer[i + 2] == 0x01)
+				{
+					Sm4Buffer[i] = 0x1F;
+					Sm4Buffer[i + 1] = 0x2F;
+					Sm4Buffer[i + 2] = 0x3F;
+					i = i + 3;
+				}
+				else if(Sm4Buffer[i] == 0x00  && Sm4Buffer[i + 1] == 0x00 && Sm4Buffer[i + 2] == 0x00 && Sm4Buffer[i + 3] == 0x01)
+				{
+					Sm4Buffer[i] = 0x1F;
+					Sm4Buffer[i + 1] = 0x2F;
+					Sm4Buffer[i + 2] = 0x3F;
+					Sm4Buffer[i + 3] = 0x4F;
+					i = i + 4;
+				}
+			}
 
 			pkt.pts = pts;
 			pkt.dts =dts; 
@@ -532,9 +555,10 @@ int OTRecorderFFmpeg::PutVideoDataSM4ToStream(uint8_t * buffer, int size, int st
 			pkt.stream_index = stream_index;
 			pkt.data = Sm4Buffer;
 
-			pkt.size = (int)encrypt_output_len + 7;
+			//pkt.size = (int)encrypt_output_len + 7;
+			pkt.flags  = flags;
 
-			fprintf(fp_clzhan, "%d\n ", pkt.size);
+			fprintf(fp_clzhan, "size %d\n ", pkt.size);
 			for(int i = 0; i < pkt.size; i ++)
 			{    
 				//printf("%02x ", pkt.data[i]);
@@ -543,13 +567,11 @@ int OTRecorderFFmpeg::PutVideoDataSM4ToStream(uint8_t * buffer, int size, int st
 			//printf("\n\n");
 			fprintf(fp_clzhan,"\n\n");
 
-			pkt.flags  = flags;
 
 
 		}
 		else if(buffer[0] == 0x00 && buffer[1] == 0x00 && buffer[2] == 0x00 && buffer[3] == 0x01)
 		{
-			printf("key = %s \n", Sm4Key.data());
 
 			//fprintf(fp_clzhan, "%d\n ", size);
 			//for(int i = 0; i < size ; i ++)
@@ -562,15 +584,41 @@ int OTRecorderFFmpeg::PutVideoDataSM4ToStream(uint8_t * buffer, int size, int st
 
 			//fwrite(buffer, 1, size, fp_clzhan);
 
+			size_t encrypt_output_len = 0;
+
+			memset(Sm4Buffer, 0, Sm4Buffer_len);
+
 			unsigned char key[] = "01234567890abcef";
 			if (0 != EncryptSM4(key, buffer + 8, size - 8, Sm4Buffer + 8, &encrypt_output_len))
 			{   
 				OT_DEBUG_ERROR_EX(kOTMobuleNameFFmpegRecorder, "EncryptSM4 error, buff_password:%s\n", Sm4Key.data());
+				exit(0);
 				return -1;
 			}  
-			for(int i =0; i < 8;i++ )
+			for(int i =0; i < 8; i++ )
 			{
 				Sm4Buffer[i] = buffer[i];
+			}
+
+			pkt.size = (int)encrypt_output_len + 8;
+
+			for(int i = 8; (i + 4) < pkt.size; i ++)
+			{
+				if(Sm4Buffer[i] == 0x00  && Sm4Buffer[i + 1] == 0x00 && Sm4Buffer[i + 2] == 0x01)
+				{
+					Sm4Buffer[i] = 0x1F;
+					Sm4Buffer[i + 1] = 0x2F;
+					Sm4Buffer[i + 2] = 0x3F;
+					i = i + 3;
+				}
+				else if(Sm4Buffer[i] == 0x00  && Sm4Buffer[i + 1] == 0x00 && Sm4Buffer[i + 2] == 0x00 && Sm4Buffer[i + 3] == 0x01)
+				{
+					Sm4Buffer[i] == 0x1F;
+					Sm4Buffer[i + 1] = 0x2F;
+					Sm4Buffer[i + 2] = 0x3F;
+					Sm4Buffer[i + 3] = 0x4F;
+					i = i + 4;
+				}
 			}
 
 			pkt.pts = pts;
@@ -579,9 +627,10 @@ int OTRecorderFFmpeg::PutVideoDataSM4ToStream(uint8_t * buffer, int size, int st
 			pkt.stream_index = stream_index;
 			pkt.data = Sm4Buffer;
 
-			pkt.size = (int)encrypt_output_len + 8;
 
-			fprintf(fp_clzhan, "%d\n ", pkt.size);
+			pkt.flags  = flags;
+
+			fprintf(fp_clzhan, "Encrypt %d  encrypt_output_len = %d\n ", pkt.size, encrypt_output_len);
 			for(int i = 0; i < pkt.size; i ++)
 			{    
 				//printf("%02x ", pkt.data[i]);
@@ -589,8 +638,6 @@ int OTRecorderFFmpeg::PutVideoDataSM4ToStream(uint8_t * buffer, int size, int st
 			}
 			//printf("\n\n");
 			fprintf(fp_clzhan,"\n\n");
-
-			pkt.flags  = flags;
 
 		}
 	}
@@ -603,69 +650,9 @@ int OTRecorderFFmpeg::PutVideoDataSM4ToStream(uint8_t * buffer, int size, int st
 		pkt.size = size;
         pkt.flags  = flags;
 	}
-	//// size ? 8
-	//if(size > 8)
-	//{
-		//printf("key = %s \n", Sm4Key.data());
-	////EncryptSM4(unsigned char const*, unsigned char const*, unsigned long, unsigned char*, unsigned long*)
-	////	CRYPTO_API int EncryptSM4(const unsigned char *password, const unsigned char *input_data, const size_t input_length, unsigned char *out_data, size_t *output_length);
-		//unsigned char key[] = "01234567890abcef";
-		//if (0 != EncryptSM4(key, buffer+8, size - 8, Sm4Buffer + 8, &encrypt_output_len))
-		//{   
-			//OT_DEBUG_ERROR_EX(kOTMobuleNameFFmpegRecorder, "EncryptSM4 error, buff_password:%s\n", Sm4Key.data());
-			//return -1;
-		//}  
-		//for(int i =0; i < 8;i++)
-		//{
-			//Sm4Buffer[i] = buffer[i];
-		//}
 
-		////if (0 != DecryptSM4(key, Sm4Buffer + 8, encrypt_output_len + 8 - 8, Sm4Buffer2 + 8, &decrypt_output_length))
-		////{   
-			////printf("DecryptSM4 error, buff_password:%s\n", Sm4Key.data());
-			////return -1;
-		////}  
-
-		////for(int i =0; i < 8;i++)
-		////{
-			////Sm4Buffer2[i] = Sm4Buffer[i];
-		////}
-
-
-		//pkt.pts = pts;
-		//pkt.dts =dts; 
-
-		//pkt.stream_index = stream_index;
-		//pkt.data = Sm4Buffer;
-		////pkt.data = Sm4Buffer2;
-		//pkt.size = (int)encrypt_output_len + 8;
-		////pkt.size = (int)decrypt_output_length + 8;
-		//fprintf(fp_clzhan, "%d\n ", pkt.size);
-		//for(int i = 0; i < pkt.size; i ++)
-		//{    
-			////printf("%02x ", pkt.data[i]);
-			//fprintf(fp_clzhan, "%02x ", pkt.data[i]);
-		//}
-		////printf("\n\n");
-		//fprintf(fp_clzhan,"\n\n");
-
-		//pkt.flags  = flags;
-
-	//}
-	//else
-	//{
-		//pkt.pts = pts;
-		//pkt.dts = dts;
-		//pkt.stream_index = stream_index;
-		//pkt.data = buffer;
-		//pkt.size = size;
-        //pkt.flags  = flags;
-
-	//}
-	//ret=av_write_frame(m_pFormatCtx, &pkt);
 
 	ret = av_interleaved_write_frame(m_pFormatCtx, &pkt);
-	//put_flush_packet(m_pFormatCtx->pb);
 	printf("-----------------clzhan------------------------\n");
     if(ret != 0)
 	{
@@ -688,11 +675,9 @@ int OTRecorderFFmpeg::PutAudioDataSM4ToStream(uint8_t * buffer, int size, int st
 		
 	av_init_packet(&pkt);
 
-	size_t encrypt_output_len;
-	size_t decrypt_output_length = 0;
+	size_t encrypt_output_len = 0;
 
 	memset(Sm4Buffer, 0, Sm4Buffer_len);
-	memset(Sm4Buffer2, 0, Sm4Buffer_len);
 	
 	// size ? 8
 	if(size > 4)
@@ -711,18 +696,7 @@ int OTRecorderFFmpeg::PutAudioDataSM4ToStream(uint8_t * buffer, int size, int st
 			Sm4Buffer[i] = buffer[i];
 		}
 
-		//if (0 != DecryptSM4(key, Sm4Buffer + 8, encrypt_output_len + 8 - 8, Sm4Buffer2 + 8, &decrypt_output_length))
-		//{   
-			//printf("DecryptSM4 error, buff_password:%s\n", Sm4Key.data());
-			//return -1;
-		//}  
-
-		//for(int i =0; i < 8;i++)
-		//{
-			//Sm4Buffer2[i] = Sm4Buffer[i];
-		//}
-
-
+	
 		pkt.pts = pts;
 		pkt.dts =dts; 
 
@@ -732,14 +706,14 @@ int OTRecorderFFmpeg::PutAudioDataSM4ToStream(uint8_t * buffer, int size, int st
 		pkt.flags  = flags;
 
 
-		fprintf(fp_clzhan, "%d\n ", pkt.size);
-		for(int i = 0; i < pkt.size; i ++)
-		{    
-			//printf("%02x ", pkt.data[i]);
-			fprintf(fp_clzhan, "%02x ", pkt.data[i]);
-		}
-		//printf("\n\n");
-		fprintf(fp_clzhan,"\n\n");
+		//fprintf(fp_clzhan, "Encrypt %d\n ", pkt.size);
+		//for(int i = 0; i < pkt.size; i ++)
+		//{    
+			////printf("%02x ", pkt.data[i]);
+			//fprintf(fp_clzhan, "%02x ", pkt.data[i]);
+		//}
+		////printf("\n\n");
+		//fprintf(fp_clzhan,"\n\n");
 
 
 	}
