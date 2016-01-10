@@ -3,14 +3,14 @@
 *.o
 *.txt
 .deps
-config*
+!config*
 *.swp
 autom4te*
 Makefile
 autom4te.cache/traces.0
 .dep
 .deps
-config.*
+!config.*
 autom4te.cache/*
-configure*
+!configure*
 
