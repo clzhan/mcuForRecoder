@@ -1,4 +1,0 @@
-telepresence-SipCallback.o: tinywrap/SipCallback.cxx \
- tinywrap/SipCallback.h
-
-tinywrap/SipCallback.h:
