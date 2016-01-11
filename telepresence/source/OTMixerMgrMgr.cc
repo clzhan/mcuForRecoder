@@ -90,7 +90,22 @@ OTMixerMgrMgr::OTMixerMgrMgr(OTMediaType_t eMediaType, OTObjectWrapper<OTBridgeI
 
 		//new  recoder
 
-		m_oRecorder = OTRecorder::New(strRecordFile, eMediaType);
+		
+		if(oBridgeInfo->isRecordEncryptionEnabled())
+		{
+			printf("---------------------clzhan -------------------------isRecordEncryptionEnabled \n");
+
+		}
+		std::string encryptionKey = oBridgeInfo->getRecordEncryptionKey();
+		printf("KEY = %s \n", encryptionKey.data());
+
+
+		bool isEncryption = true;
+		//std::string encryptionKey("01234567890acdf");
+		std::string Sm2PublicKey("01234567890acdf");
+
+		exit(0);
+		m_oRecorder = OTRecorder::New(isEncryption,encryptionKey,Sm2PublicKey, strRecordFile, eMediaType);
 
 		printf("from id = %s\n", oBridgeInfo->getFromId().data());
 		printf("id = %s\n", oBridgeInfo->getId().data());

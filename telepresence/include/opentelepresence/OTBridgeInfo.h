@@ -32,7 +32,9 @@ public:
 	OT_INLINE void setSpeakerSipSessionId(uint64_t nId) { m_nSpeakerSipSessionId = nId; }
 
 	OT_INLINE void setRecordEnabled(bool bRecord){  m_bRecord = bRecord; }
+	OT_INLINE void setRecordEncryptionEnabled(bool isEncryption){  m_bRecordEncryptionEnabled = isEncryption; }
 	OT_INLINE bool isRecordEnabled(){ return  m_bRecord; }
+	OT_INLINE bool isRecordEncryptionEnabled(){ return  m_bRecordEncryptionEnabled; }
 
 	OT_INLINE uint32_t getVideoWidth() { return m_nVideoWidth; }
 	OT_INLINE void setVideoWidth(uint32_t nWidth) { m_nVideoWidth = nWidth; }
@@ -58,6 +60,7 @@ public:
 	OT_INLINE std::string getRecordFileExt(){ return m_strRecordFileExt; }
 	// get record path
 	OT_INLINE std::string getRecordFilePath(){ return m_strRecordFilePath; }
+	OT_INLINE std::string getRecordEncryptionKey(){ return m_strRecordEncryptionKey; }
 
 	OT_INLINE uint16_t getAudioBitsPerSample(){ return m_nAudioBitsPerSample; }
 	OT_INLINE uint16_t getAudioChannels(){ return m_nAudioChannels; }
@@ -85,9 +88,11 @@ public:
 
 private:
 	uint64_t m_uEngineId;
-	std::string m_strBridgeId, m_fromBridgeId, m_strRecordFileExt , m_strRecordFilePath;
+	std::string m_strBridgeId, m_fromBridgeId, m_strRecordFileExt , m_strRecordFilePath, m_strRecordEncryptionKey;
 	uint64_t m_nSpeakerSipSessionId;
 	bool m_bRecord;
+	bool m_bRecordEncryptionEnabled;
+
 	uint32_t m_nVideoWidth;
 	uint32_t m_nVideoHeight;
 	uint32_t m_nVideoFps;

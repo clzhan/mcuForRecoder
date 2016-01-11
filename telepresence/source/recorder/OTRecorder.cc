@@ -155,7 +155,7 @@ private:
 class OTRecorderFFmpeg : public OTRecorder
 {
 public:
-	OTRecorderFFmpeg(std::string strFilePath, OTMediaType_t eMediaType);
+	OTRecorderFFmpeg(bool isEncryption,std::string encryptionKey, std::string Sm2PublicKey, std::string strFilePath, OTMediaType_t eMediaType);
 	virtual ~OTRecorderFFmpeg();
 	virtual OT_INLINE const char* getObjectId() { return "OTRecorderFFmpeg"; }
 
@@ -192,7 +192,7 @@ private:
 	uint64_t m_nFirstWriteTime;
 	OTObjectWrapper<OTMutex *> m_oMutex;
 	std::string Sm4Key;
-	std::string Sm2PublicKey;
+	//std::string Sm2PublicKey;
 	uint8_t *Sm4Buffer;
 	int Sm4Buffer_len;
 	FILE * fp_clzhan;
@@ -202,7 +202,7 @@ private:
 class OTRecorderWebM : public OTRecorder
 {
 public:
-	OTRecorderWebM(std::string strFilePath, OTMediaType_t eMediaType);
+	OTRecorderWebM( bool isEncryption,std::string encryptionKey, std::string Sm2PublicKey,std::string strFilePath, OTMediaType_t eMediaType);
 	virtual ~OTRecorderWebM();
 	virtual OT_INLINE const char* getObjectId() { return "OTRecorderWebM"; }
 
@@ -238,8 +238,11 @@ private:
 //	OTRecorder
 //
 
-OTRecorder::OTRecorder(std::string strFilePath, OTMediaType_t eMediaType)
-: m_strFilePath(strFilePath)
+OTRecorder::OTRecorder(bool isEncryption,std::string encryptionKey, std::string Sm2PublicKey,std::string strFilePath, OTMediaType_t eMediaType)
+: isEncryption(isEncryption)
+, encryptionKey(encryptionKey)
+, Sm2PublicKey(Sm2PublicKey)
+, m_strFilePath(strFilePath)
 , m_eMediaType(eMediaType)
 {
 
@@ -250,12 +253,12 @@ OTRecorder::~OTRecorder()
 	OT_DEBUG_INFO("*** OTRecorder(%s) destroyed ***", getObjectId());
 }
 
-OTObjectWrapper<OTRecorder*> OTRecorder::New(std::string strFilePath, OTMediaType_t eMediaType)
+OTObjectWrapper<OTRecorder*> OTRecorder::New(bool isEncryption,std::string encryptionKey, std::string Sm2PublicKey, std::string strFilePath, OTMediaType_t eMediaType)
 {
 #if 1
-	return new OTRecorderFFmpeg(strFilePath, eMediaType);
+	return new OTRecorderFFmpeg(isEncryption, encryptionKey, Sm2PublicKey, strFilePath, eMediaType);
 #elif 1
-	return new OTRecorderWebM(strFilePath, eMediaType);
+	//return new OTRecorderWebM(isEncryption, encryptionKey, Sm2PublicKey, strFilePath, eMediaType);
 #else
 	return NULL;
 #endif
@@ -266,8 +269,8 @@ OTObjectWrapper<OTRecorder*> OTRecorder::New(std::string strFilePath, OTMediaTyp
 //	OTRecorderFFmpeg
 //
 
-OTRecorderFFmpeg::OTRecorderFFmpeg(std::string strFilePath, OTMediaType_t eMediaType)
-: OTRecorder(strFilePath, eMediaType)
+OTRecorderFFmpeg::OTRecorderFFmpeg(bool isEncryption,std::string encryptionKey, std::string Sm2PublicKey, std::string strFilePath, OTMediaType_t eMediaType)
+: OTRecorder(isEncryption, encryptionKey, Sm2PublicKey, strFilePath, eMediaType)
 , m_bVideoOpened(false)
 , m_bAudioOpened(false)
 , m_pFormatCtx(NULL)
@@ -1271,8 +1274,8 @@ extern void write_webm_block(struct EbmlGlobal *glob,
                  const void* dataPtr, size_t dataSize);
 extern void write_webm_file_footer(EbmlGlobal *glob, long hash);
 
-OTRecorderWebM::OTRecorderWebM(std::string strFilePath, OTMediaType_t eMediaType)
-: OTRecorder(strFilePath, eMediaType)
+OTRecorderWebM::OTRecorderWebM(bool isEncryption,std::string encryptionKey, std::string Sm2PublicKey, std::string strFilePath, OTMediaType_t eMediaType)
+: OTRecorder(isEncryption, encryptionKey, Sm2PublicKey, strFilePath, eMediaType)
 , m_pFile(NULL)
 , m_pGlob(NULL)
 , m_nVideoWidth(0)

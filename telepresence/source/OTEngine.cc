@@ -547,6 +547,13 @@ bool OTEngine::setRecordEnabled(bool bEnabled)
 	return true;
 }
 
+bool OTEngine::setRecordEncryptionEnabled(bool isEncryption )
+{
+	m_oInfo->m_bRecordEncryptionEnabled = isEncryption;
+	return true;
+}
+
+
 bool OTEngine::setRecordFileExt(std::string strRecordFileExt)
 {
 	if(!strRecordFileExt.empty())
@@ -562,6 +569,18 @@ bool OTEngine::setRecordFilePath(std::string strRecordFilePath)
 	if(!strRecordFilePath.empty())
 	{
 		m_oInfo->m_strRecordFilePath = strRecordFilePath;
+		return true;
+	}
+	return false;
+}
+
+bool OTEngine::setRecordEncryptionKey(std::string cryptionKey)
+{
+	if(!cryptionKey.empty())
+	{
+		m_oInfo->m_strRecordEncryptionKey = cryptionKey;
+		exit(0);
+
 		return true;
 	}
 	return false;
@@ -1033,6 +1052,20 @@ bool OTEngine::setConfFile(const char* pcConfFileFullPath)
 					if(!setRecordFilePath(pcParamValue))
 					{
 						OT_DEBUG_ERROR_EX(kOTMobuleNameCfg, "Failed to set 'record-file-path': %s", pcParamValue);
+					}
+				}
+				else if(tsk_striequals("record-file-use-encryption", pcParamName))
+				{
+					if(!setRecordEncryptionEnabled(ot_str_is_yes(pcParamValue)))
+					{
+						OT_DEBUG_ERROR_EX(kOTMobuleNameCfg, "Failed to set 'record-file-use-encryption': %s", pcParamValue);
+					}
+				}
+				else if(tsk_striequals("record-file-sm4key", pcParamName))
+				{
+					if(!setRecordEncryptionKey(pcParamValue))
+					{
+						OT_DEBUG_ERROR_EX(kOTMobuleNameCfg, "Failed to set 'record-file-sm4key': %s", pcParamValue);
 					}
 				}
 				else if(tsk_striequals("overlay-fonts-folder-path", pcParamName))

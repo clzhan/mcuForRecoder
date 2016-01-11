@@ -17,7 +17,7 @@
 class OTRecorder : public OTObject
 {
 protected:
-	OTRecorder(std::string strFilePath, OTMediaType_t eMediaType);
+	OTRecorder(bool isEncryption,std::string encryptionKey, std::string Sm2PublicKey,std::string strFilePath, OTMediaType_t eMediaType);
 public:
 	virtual ~OTRecorder();
 	virtual OT_INLINE const char* getObjectId() { return "OTRecorder"; }
@@ -31,9 +31,12 @@ public:
 	virtual bool writeRawAudioPayload(const void* rtpPayPtr, size_t rtpPaySize) = 0;
 	virtual bool close(OTMediaType_t eMediaType) = 0;
 
-	static OTObjectWrapper<OTRecorder*> New(std::string strFilePath, OTMediaType_t eMediaType);
+	static OTObjectWrapper<OTRecorder*> New(bool isEncryption,std::string encryptionKey, std::string Sm2PublicKey,std::string strFilePath, OTMediaType_t eMediaType);
 
 protected:
+	bool isEncryption;
+	std::string encryptionKey;
+	std::string Sm2PublicKey;
 	std::string m_strFilePath;
 	OTMediaType_t m_eMediaType;
 };
