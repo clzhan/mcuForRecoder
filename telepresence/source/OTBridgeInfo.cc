@@ -16,6 +16,7 @@ OTBridgeInfo::OTBridgeInfo(std::string strId,std::string fromId,OTObjectWrapper<
 , m_fromBridgeId(fromId)
 , m_nSpeakerSipSessionId(0)
 , m_bRecord(oEngineInfo->m_bRecordEnabled)
+, m_bRecordEncryption(oEngineInfo->m_bRecordEncryptionEnabled)
 , m_strRecordFileExt(oEngineInfo->m_strRecordFileExt)
 , m_strRecordFilePath(oEngineInfo->m_strRecordFilePath)
 , m_strRecordEncryptionKey(oEngineInfo->m_strRecordEncryptionKey)

@@ -472,7 +472,7 @@ bail:
 
 int OTRecorderFFmpeg::PutVideoDataSM4ToStream(uint8_t * buffer, int size, int stream_index, int flags, int64_t pts, int64_t dts)
 {
-	printf("size = %d   Sm4Buffer_len = %d \n", size, Sm4Buffer_len);
+	printf("write Video Data size = %d\n", size);
 		
 	int ret = 0;
 	AVPacket pkt = {0};
@@ -519,10 +519,10 @@ int OTRecorderFFmpeg::PutVideoDataSM4ToStream(uint8_t * buffer, int size, int st
 
 			memset(Sm4Buffer, 0, Sm4Buffer_len);
 
-			unsigned char key[] = "01234567890abcef";
-			if (0 != EncryptSM4(key, buffer + 7, size - 7, Sm4Buffer + 7, &encrypt_output_len))
+			//unsigned char key[] = "01234567890abcef";
+			if (0 != EncryptSM4((unsigned char*)encryptionKey.data(), buffer + 7, size - 7, Sm4Buffer + 7, &encrypt_output_len))
 			{   
-				OT_DEBUG_ERROR_EX(kOTMobuleNameFFmpegRecorder, "EncryptSM4 error, buff_password:%s\n", Sm4Key.data());
+				OT_DEBUG_ERROR_EX(kOTMobuleNameFFmpegRecorder, "EncryptSM4 error, buff_password:%s\n", encryptionKey.data());
 				exit(0);
 				return -1;
 			}  
@@ -591,10 +591,10 @@ int OTRecorderFFmpeg::PutVideoDataSM4ToStream(uint8_t * buffer, int size, int st
 
 			memset(Sm4Buffer, 0, Sm4Buffer_len);
 
-			unsigned char key[] = "01234567890abcef";
-			if (0 != EncryptSM4(key, buffer + 8, size - 8, Sm4Buffer + 8, &encrypt_output_len))
+			//unsigned char key[] = "01234567890abcef";
+			if (0 != EncryptSM4((unsigned char*)encryptionKey.data(), buffer + 8, size - 8, Sm4Buffer + 8, &encrypt_output_len))
 			{   
-				OT_DEBUG_ERROR_EX(kOTMobuleNameFFmpegRecorder, "EncryptSM4 error, buff_password:%s\n", Sm4Key.data());
+				OT_DEBUG_ERROR_EX(kOTMobuleNameFFmpegRecorder, "EncryptSM4 error, buff_password:%s\n", encryptionKey.data());
 				exit(0);
 				return -1;
 			}  
@@ -671,7 +671,7 @@ int OTRecorderFFmpeg::PutVideoDataSM4ToStream(uint8_t * buffer, int size, int st
 
 int OTRecorderFFmpeg::PutAudioDataSM4ToStream(uint8_t * buffer, int size, int stream_index, int flags, int64_t pts, int64_t dts)
 {
-	printf("size = %d   Sm4Buffer_len = %d \n", size, Sm4Buffer_len);
+	printf("write Audio Data size = %d\n", size);
 		
 	int ret = 0;
 	AVPacket pkt = {0};
@@ -687,11 +687,11 @@ int OTRecorderFFmpeg::PutAudioDataSM4ToStream(uint8_t * buffer, int size, int st
 	{
 		printf("key = %s \n", Sm4Key.data());
 
-		unsigned char key[] = "01234567890abcef";
+		//unsigned char key[] = "01234567890abcef";
 
-		if (0 != EncryptSM4(key, buffer+4, size - 4, Sm4Buffer + 4, &encrypt_output_len))
+		if (0 != EncryptSM4((unsigned char*)encryptionKey.data(), buffer+4, size - 4, Sm4Buffer + 4, &encrypt_output_len))
 		{   
-			OT_DEBUG_ERROR_EX(kOTMobuleNameFFmpegRecorder, "EncryptSM4 error, buff_password:%s\n", Sm4Key.data());
+			OT_DEBUG_ERROR_EX(kOTMobuleNameFFmpegRecorder, "EncryptSM4 error, buff_password:%s\n", encryptionKey.data());
 			return -1;
 		}  
 		for(int i =0; i < 4;i++)
@@ -733,7 +733,6 @@ int OTRecorderFFmpeg::PutAudioDataSM4ToStream(uint8_t * buffer, int size, int st
 
 	ret = av_interleaved_write_frame(m_pFormatCtx, &pkt);
 
-	printf("-----------------clzhan------------------------\n");
     if(ret != 0)
 	{
         OT_DEBUG_ERROR_EX(kOTMobuleNameFFmpegRecorder, "Error while clzhan frame ");
@@ -789,9 +788,15 @@ bool OTRecorderFFmpeg::writeRawVideoPayload(const void* yuv420PayPtr, size_t yuv
 			//tmp++;
 			//pkt.data[i] = tmp;
 		//}
-		ret = PutVideoDataSM4ToStream(pkt.data, pkt.size, pkt.stream_index, pkt.flags, pkt.pts, pkt.dts);
+		if(isEncryption)
+		{
+			ret = PutVideoDataSM4ToStream(pkt.data, pkt.size, pkt.stream_index, pkt.flags, pkt.pts, pkt.dts);
+		}
+		else
+		{
+			ret = av_interleaved_write_frame(m_pFormatCtx, &pkt);
+		}
 
-		//ret = av_interleaved_write_frame(m_pFormatCtx, &pkt);
 		m_oMutex->unlock();
     } 
 	else
@@ -827,8 +832,15 @@ bool OTRecorderFFmpeg::writeRawVideoPayload(const void* yuv420PayPtr, size_t yuv
 				//tmp++;
 				//pkt.data[i] = tmp;
 			//}
-            //ret = av_interleaved_write_frame(m_pFormatCtx, &pkt);
-		    ret = PutVideoDataSM4ToStream(pkt.data, pkt.size, pkt.stream_index, pkt.flags, pkt.pts, pkt.dts);
+			if(isEncryption)
+			{
+		    	ret = PutVideoDataSM4ToStream(pkt.data, pkt.size, pkt.stream_index, pkt.flags, pkt.pts, pkt.dts);
+			}
+			else
+			{
+            	ret = av_interleaved_write_frame(m_pFormatCtx, &pkt);
+			}
+
 			m_oMutex->unlock();
         } 
 		else

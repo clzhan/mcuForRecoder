@@ -579,7 +579,6 @@ bool OTEngine::setRecordEncryptionKey(std::string cryptionKey)
 	if(!cryptionKey.empty())
 	{
 		m_oInfo->m_strRecordEncryptionKey = cryptionKey;
-		exit(0);
 
 		return true;
 	}

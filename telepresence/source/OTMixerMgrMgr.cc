@@ -85,11 +85,11 @@ OTMixerMgrMgr::OTMixerMgrMgr(OTMediaType_t eMediaType, OTObjectWrapper<OTBridgeI
 		// set /mnt/2016/1/9/120100/id.mp4
 
 		std::string strRecordFile(filePath + oBridgeInfo->getId() + "." + oBridgeInfo->getRecordFileExt());
+		//std::string strRecordFile(oBridgeInfo->getRecordFilePath() + oBridgeInfo->getId() + "." + oBridgeInfo->getRecordFileExt());
 
 		printf("strRecordFile = %s \n", strRecordFile.data());
 
 		//new  recoder
-
 		
 		if(oBridgeInfo->isRecordEncryptionEnabled())
 		{
@@ -104,12 +104,10 @@ OTMixerMgrMgr::OTMixerMgrMgr(OTMediaType_t eMediaType, OTObjectWrapper<OTBridgeI
 		//std::string encryptionKey("01234567890acdf");
 		std::string Sm2PublicKey("01234567890acdf");
 
-		exit(0);
-		m_oRecorder = OTRecorder::New(isEncryption,encryptionKey,Sm2PublicKey, strRecordFile, eMediaType);
+		m_oRecorder = OTRecorder::New(oBridgeInfo->isRecordEncryptionEnabled(),oBridgeInfo->getRecordEncryptionKey() ,Sm2PublicKey, strRecordFile, eMediaType);
 
 		printf("from id = %s\n", oBridgeInfo->getFromId().data());
 		printf("id = %s\n", oBridgeInfo->getId().data());
-		//std::string strRecordFile(oBridgeInfo->getRecordFilePath() + oBridgeInfo->getId() + "." + oBridgeInfo->getRecordFileExt());
 	}
 
 	if(m_eMediaType & OTMediaType_Audio)
