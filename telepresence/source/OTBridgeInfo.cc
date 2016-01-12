@@ -20,6 +20,8 @@ OTBridgeInfo::OTBridgeInfo(std::string strId,std::string fromId,OTObjectWrapper<
 , m_strRecordFileExt(oEngineInfo->m_strRecordFileExt)
 , m_strRecordFilePath(oEngineInfo->m_strRecordFilePath)
 , m_strRecordEncryptionKey(oEngineInfo->m_strRecordEncryptionKey)
+, m_strRecordSm2Key(oEngineInfo->m_strRecordSm2Key)
+, m_strRecordOpenFireServlet(oEngineInfo->m_strRecordOpenFireServlet)
 , m_nVideoWidth(oEngineInfo->m_nMixedVideoWidth)
 , m_nVideoHeight(oEngineInfo->m_nMixedVideoHeight)
 , m_parSpeaker(oEngineInfo->m_parSpeaker)

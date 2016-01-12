@@ -585,6 +585,27 @@ bool OTEngine::setRecordEncryptionKey(std::string cryptionKey)
 	return false;
 }
 
+bool OTEngine::setRecordSm2Key(std::string Sm2PulicKey)
+{
+	if(!Sm2PulicKey.empty())
+	{
+		m_oInfo->m_strRecordSm2Key = Sm2PulicKey;
+
+		return true;
+	}
+	return false;
+}
+bool OTEngine::setRecordOpenFireServlet(std::string oPenFireServlet)
+{
+	if(!oPenFireServlet.empty())
+	{
+		m_oInfo->m_strRecordOpenFireServlet = oPenFireServlet;
+
+		return true;
+	}
+	return false;
+}
+
 bool OTEngine::setCodecs(const char* pcCodecs)
 {
 	if(!isValid())
@@ -1065,6 +1086,20 @@ bool OTEngine::setConfFile(const char* pcConfFileFullPath)
 					if(!setRecordEncryptionKey(pcParamValue))
 					{
 						OT_DEBUG_ERROR_EX(kOTMobuleNameCfg, "Failed to set 'record-file-sm4key': %s", pcParamValue);
+					}
+				}
+				else if(tsk_striequals("record-file-sm2publickey", pcParamName))
+				{
+					if(!setRecordSm2Key(pcParamValue))
+					{
+						OT_DEBUG_ERROR_EX(kOTMobuleNameCfg, "Failed to set 'record-file-sm2publickey': %s", pcParamValue);
+					}
+				}
+				else if(tsk_striequals("record-file-openfire-servlet", pcParamName))
+				{
+					if(!setRecordOpenFireServlet(pcParamValue))
+					{
+						OT_DEBUG_ERROR_EX(kOTMobuleNameCfg, "Failed to set 'ecord-file-openfire-servlet': %s", pcParamValue);
 					}
 				}
 				else if(tsk_striequals("overlay-fonts-folder-path", pcParamName))

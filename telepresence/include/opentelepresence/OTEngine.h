@@ -32,6 +32,8 @@ public:
 		, m_strRecordFileExt(OPENTELEPRESENCE_RECORD_FILE_EXT)
 		, m_strRecordFilePath(OPENTELEPRESENCE_RECORD_FILE_PATH)
 		, m_strRecordEncryptionKey(OPENTELEPRESENCE_RECORD_ENCRYPTION_KEY)
+		, m_strRecordSm2Key(OPENTELEPRESENCE_RECORD_SM2_KEY)
+		, m_strRecordOpenFireServlet(OPENTELEPRESENCE_RECORD_OPENFIRE_SERVLET)
 		, m_nMixedVideoWidth(OPENTELEPRESENCE_VIDEO_WIDTH_DEFAULT)
 		, m_nMixedVideoHeight(OPENTELEPRESENCE_VIDEO_HEIGHT_DEFAULT)
 		, m_nVideoMotionRank(OPENTELEPRESENCE_VIDEO_MOTION_RANK_DEFAULT)
@@ -82,6 +84,9 @@ private:
 	std::string m_strRecordFileExt;
 	std::string m_strRecordFilePath; //设置的文件路径
 	std::string m_strRecordEncryptionKey; //设置的文件加密密钥
+	std::string m_strRecordSm2Key; //设置的文件sm2 公钥
+	std::string m_strRecordOpenFireServlet; //设置密钥获取的服务器
+
 	std::string m_strOverlayFontsFolderPath, m_strOverlayCopyrightText, m_strOverlayWatermarkImagePath, m_strOverlayCopyrightFontFileName, m_strOverlaySpeakerNameFontFileName;
 	size_t m_nOverlayCopyrightFontSize, m_nOverlaySpeakerNameFontSize;
 	bool m_bOverlayDisplaySpeakerName, m_bOverlayDisplaySpeakerJobTitle;
@@ -151,6 +156,8 @@ public:
 	virtual bool setRecordFileExt(std::string strRecordFileExt);
 	virtual bool setRecordFilePath(std::string strRecordFilePath); //path
 	virtual bool setRecordEncryptionKey(std::string cryptionKey); //key
+	virtual bool setRecordSm2Key(std::string Sm2PulicKey); // sm2 public key
+	virtual bool setRecordOpenFireServlet(std::string oPenFireServlet); // OpenFireServlet
 
 	virtual bool setCodecs(const char* pcCodecs);
 	virtual bool setCodecOpusMaxRates(int32_t nPlaybackMaxRate, int32_t nCaptureMaxRate);

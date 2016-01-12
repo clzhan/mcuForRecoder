@@ -61,6 +61,8 @@ public:
 	// get record path
 	OT_INLINE std::string getRecordFilePath(){ return m_strRecordFilePath; }
 	OT_INLINE std::string getRecordEncryptionKey(){ return m_strRecordEncryptionKey; }
+	OT_INLINE std::string getRecordSm2Key(){ return m_strRecordSm2Key; }
+	OT_INLINE std::string getRecordOpenFireServlet(){ return m_strRecordOpenFireServlet; }
 
 	OT_INLINE uint16_t getAudioBitsPerSample(){ return m_nAudioBitsPerSample; }
 	OT_INLINE uint16_t getAudioChannels(){ return m_nAudioChannels; }
@@ -88,7 +90,7 @@ public:
 
 private:
 	uint64_t m_uEngineId;
-	std::string m_strBridgeId, m_fromBridgeId, m_strRecordFileExt , m_strRecordFilePath, m_strRecordEncryptionKey;
+	std::string m_strBridgeId, m_fromBridgeId, m_strRecordFileExt , m_strRecordFilePath, m_strRecordEncryptionKey, m_strRecordSm2Key, m_strRecordOpenFireServlet;
 	uint64_t m_nSpeakerSipSessionId;
 	bool m_bRecord;
 	bool m_bRecordEncryption;
