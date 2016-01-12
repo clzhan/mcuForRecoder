@@ -13,6 +13,12 @@
 
 #include <assert.h>
 
+#include <curl/curl.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <sstream>
+
+
 extern "C"
 {
 	#include <libavformat/avformat.h>
@@ -155,7 +161,11 @@ private:
 class OTRecorderFFmpeg : public OTRecorder
 {
 public:
-	OTRecorderFFmpeg(bool isEncryption,std::string encryptionKey, std::string Sm2PublicKey, std::string strFilePath, OTMediaType_t eMediaType);
+	OTRecorderFFmpeg(bool isEncryption,std::string encryptionKey, std::string Sm2PublicKey, 
+											std::string strRecordOpenFireServlet, 
+											std::string strRecordFile,
+											std::string strConferenceId,
+											std::string strFilePath, OTMediaType_t eMediaType);
 	virtual ~OTRecorderFFmpeg();
 	virtual OT_INLINE const char* getObjectId() { return "OTRecorderFFmpeg"; }
 
@@ -168,6 +178,9 @@ public:
 	bool writeRawVideoPayload(const void* yuv420PayPtr, size_t yuv420PaySize);
 	bool writeRawAudioPayload(const void* pcmPayPtr, size_t pcmPaySize);
 	bool close(OTMediaType_t eMediaType);
+	int HttpPost(const std::string & strUrl, const std::string & strMeetingNO, const std::string & Path , std::string & strResponse);
+	int HttpGet(const std::string & strUrl, const std::string & strRecordId, const std::string & strMeetingNO, std::string & strResponse);
+
 
 private:
 	// Private functions
@@ -191,8 +204,6 @@ private:
 	size_t m_nAVAudioBufferSizeInBytes, m_nAVAudioBufferSizeInSamples, m_nAVAudioBufferIndexInBytes;
 	uint64_t m_nFirstWriteTime;
 	OTObjectWrapper<OTMutex *> m_oMutex;
-	std::string Sm4Key;
-	//std::string Sm2PublicKey;
 	uint8_t *Sm4Buffer;
 	int Sm4Buffer_len;
 	FILE * fp_clzhan;
@@ -202,7 +213,11 @@ private:
 class OTRecorderWebM : public OTRecorder
 {
 public:
-	OTRecorderWebM( bool isEncryption,std::string encryptionKey, std::string Sm2PublicKey,std::string strFilePath, OTMediaType_t eMediaType);
+	OTRecorderWebM( bool isEncryption,std::string encryptionKey, std::string Sm2PublicKey,
+																std::string strRecordOpenFireServlet, 
+																std::string strRecordFile,
+																std::string strConferenceId,
+									std::string strFilePath, OTMediaType_t eMediaType);
 	virtual ~OTRecorderWebM();
 	virtual OT_INLINE const char* getObjectId() { return "OTRecorderWebM"; }
 
@@ -238,10 +253,17 @@ private:
 //	OTRecorder
 //
 
-OTRecorder::OTRecorder(bool isEncryption,std::string encryptionKey, std::string Sm2PublicKey,std::string strFilePath, OTMediaType_t eMediaType)
+OTRecorder::OTRecorder(bool isEncryption,std::string encryptionKey, std::string Sm2PublicKey,
+											std::string strRecordOpenFireServlet, 
+											std::string strRecordFile,
+											std::string strConferenceId,
+											std::string strFilePath, OTMediaType_t eMediaType)
 : isEncryption(isEncryption)
 , encryptionKey(encryptionKey)
 , Sm2PublicKey(Sm2PublicKey)
+, m_strRecordOpenFireServlet(strRecordOpenFireServlet)
+, m_strRecordFile(strRecordFile)
+, m_strConferenceId(strConferenceId)
 , m_strFilePath(strFilePath)
 , m_eMediaType(eMediaType)
 {
@@ -253,10 +275,14 @@ OTRecorder::~OTRecorder()
 	OT_DEBUG_INFO("*** OTRecorder(%s) destroyed ***", getObjectId());
 }
 
-OTObjectWrapper<OTRecorder*> OTRecorder::New(bool isEncryption,std::string encryptionKey, std::string Sm2PublicKey, std::string strFilePath, OTMediaType_t eMediaType)
+OTObjectWrapper<OTRecorder*> OTRecorder::New(bool isEncryption,std::string encryptionKey, std::string Sm2PublicKey, 
+																std::string strRecordOpenFireServlet, 
+																std::string strRecordFile,
+																std::string strConferenceId,
+																std::string strFilePath, OTMediaType_t eMediaType)
 {
 #if 1
-	return new OTRecorderFFmpeg(isEncryption, encryptionKey, Sm2PublicKey, strFilePath, eMediaType);
+	return new OTRecorderFFmpeg(isEncryption, encryptionKey, Sm2PublicKey,strRecordOpenFireServlet,strRecordFile,strConferenceId, strFilePath, eMediaType);
 #elif 1
 	//return new OTRecorderWebM(isEncryption, encryptionKey, Sm2PublicKey, strFilePath, eMediaType);
 #else
@@ -269,8 +295,181 @@ OTObjectWrapper<OTRecorder*> OTRecorder::New(bool isEncryption,std::string encry
 //	OTRecorderFFmpeg
 //
 
-OTRecorderFFmpeg::OTRecorderFFmpeg(bool isEncryption,std::string encryptionKey, std::string Sm2PublicKey, std::string strFilePath, OTMediaType_t eMediaType)
-: OTRecorder(isEncryption, encryptionKey, Sm2PublicKey, strFilePath, eMediaType)
+static size_t OnWriteData(void* buffer, size_t size, size_t nmemb, void* lpVoid)
+{
+	std::string* str = dynamic_cast<std::string*>((std::string *)lpVoid);
+	if( NULL == str || NULL == buffer )
+	{
+		return -1;
+	}
+
+	char* pData = (char*)buffer;
+	str->append(pData, size * nmemb);
+	return nmemb;
+} 
+static int str_to_hex(unsigned char *string, const int len , unsigned char *cbuf, int & cbuf_len)
+{
+
+	unsigned char high;
+	unsigned char low;
+	int idx, ii=0;
+	for (idx=0; idx<len; idx+=2)
+	{
+		high = string[idx];
+		low = string[idx+1];
+
+		if(high>='0' && high<='9')
+			high = high-'0';
+		else if(high>='A' && high<='F')
+			high = high - 'A' + 10;
+		else if(high>='a' && high<='f')
+			high = high - 'a' + 10;
+		else
+			return -1;
+
+		if(low>='0' && low<='9')
+			low = low-'0';
+		else if(low>='A' && low<='F')
+			low = low - 'A' + 10;
+		else if(low>='a' && low<='f')
+			low = low - 'a' + 10;
+		else
+			return -1;
+
+		cbuf[ii++] = high<<4 | low;
+	}
+	return 0;
+}
+
+static std::string int2str(int i) {
+
+	    std::stringstream ss;
+		    ss << i;
+			    return ss.str();
+
+}
+static int create_multi_dir(const char *path)
+{
+	int i, len;
+	len = strlen(path);
+	char dir_path[len+1];
+	dir_path[len] = '\0';
+
+	strncpy(dir_path, path, len);
+
+	for (i=0; i<len; i++)
+	{
+		if (dir_path[i] == '/' && i > 0)
+		{
+			dir_path[i]='\0';
+			if (access(dir_path, F_OK) < 0)
+			{
+				if (mkdir(dir_path, 0755) < 0)
+				{
+					printf("mkdir=%s:msg=%s\n", dir_path, strerror(errno));
+					return -1;
+				}
+			}
+			dir_path[i]='/';
+		}
+	}
+
+	return 0;
+}
+
+
+
+
+
+int OTRecorderFFmpeg::HttpPost(const std::string & strUrl, const std::string & strMeetingNO, const std::string & Path , std::string & strResponse)
+{
+
+	CURL *curl;
+	CURLcode res;
+
+	curl = curl_easy_init();
+	if (curl)
+	{   
+		std::string strparam = "from=RECODER&MeetingNo=" + strMeetingNO;
+		strparam += "&";
+		strparam += "isok=OK&path=";
+		strparam += Path;
+		strparam += "&msg= This is recorder ok!" ;
+
+
+		printf("strparam = %s\n", strparam.c_str());
+
+		curl_easy_setopt(curl, CURLOPT_URL,  strUrl.c_str());   // 指定url
+
+		curl_easy_setopt(curl, CURLOPT_POST, 1); 
+
+		curl_easy_setopt(curl, CURLOPT_POSTFIELDS, strparam.c_str());    // 指定post内容
+
+		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, OnWriteData);
+		curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&strResponse);
+		res = curl_easy_perform(curl);
+		curl_easy_cleanup(curl);
+
+
+		printf(" post strResponse   = %s\n", strResponse.data());
+	}   
+	else
+	{   
+		return -1; 
+	}   
+	return 0;
+
+}
+int OTRecorderFFmpeg::HttpGet(const std::string & strUrl, const std::string & strRecordId, const std::string & strMeetingNO, std::string & strResponse)
+{
+	CURL *curl;
+	CURLcode res;
+
+	curl = curl_easy_init();
+	if (curl)
+	{   
+		std::string strparam1 = "RECODEID:" + strRecordId;
+		std::string strparam2 = "MeetingNO:" + strMeetingNO;
+
+
+		printf("strUrl = %s\n", strUrl.c_str());
+		printf("strRecordId = %s\n",strRecordId.c_str());
+		printf("strMeetingNO = %s\n", strMeetingNO.c_str());
+
+		curl_easy_setopt(curl, CURLOPT_URL, strUrl.c_str());
+		struct curl_slist *headers=NULL; /* init to NULL is important */
+		headers = curl_slist_append(headers, strparam1.c_str());
+		headers = curl_slist_append(headers, strparam2.c_str());
+		/* pass our list of custom made headers */
+		curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
+
+		curl_easy_setopt(curl, CURLOPT_READFUNCTION, NULL);
+		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, OnWriteData);
+		curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&strResponse);
+		res = curl_easy_perform(curl);
+
+		curl_slist_free_all(headers); /* free the header list */
+		curl_easy_cleanup(curl);
+
+		printf("get strResponse   = %s\n", strResponse.data());
+	}
+	else
+	{
+		return -1;
+	}
+
+	return 0;
+}
+
+
+
+OTRecorderFFmpeg::OTRecorderFFmpeg(bool isEncryption,std::string encryptionKey, std::string Sm2PublicKey,
+																std::string strRecordOpenFireServlet,
+																std::string strRecordFile,
+																std::string strConferenceId,
+																std::string strFilePath,
+																OTMediaType_t eMediaType)
+: OTRecorder(isEncryption, encryptionKey, Sm2PublicKey, strRecordOpenFireServlet, strRecordFile, strConferenceId, strFilePath, eMediaType)
 , m_bVideoOpened(false)
 , m_bAudioOpened(false)
 , m_pFormatCtx(NULL)
@@ -290,6 +489,63 @@ OTRecorderFFmpeg::OTRecorderFFmpeg(bool isEncryption,std::string encryptionKey, 
 {
 	int ret;
 
+	//get
+	// get 120100's sm4key and sm2key or use default key
+
+	//HttpGet(const std::string & strUrl, const std::string & strRecordId, const std::string & strMeetingNO, std::string & strResponse)
+
+	std::string m_strResponse;
+	std::string sm4_key;
+	std::string sm2_public_key;
+	
+	if(isEncryption)
+	{
+		if(!m_strRecordOpenFireServlet.empty())
+		{
+			if(0 != HttpGet(m_strRecordOpenFireServlet, strRecordFile, strConferenceId, m_strResponse))
+			{
+				printf("%s:%d error %s\n",__func__,__LINE__,__FILE__);
+				exit(0);
+			}
+		}
+
+
+		if(!m_strResponse.empty())
+		{
+			const char * split = ";";
+			char * p = NULL;
+			p = strtok ((char *)m_strResponse.c_str(),split);
+			while(p!=NULL)
+			{
+
+				if(strstr(p, "key1:") != NULL)
+				{
+					sm2_public_key += (p+5);
+				}
+				if(strstr(p, "key2:") != NULL)
+				{
+					sm4_key += (p+5);
+				}
+				p = strtok(NULL,split);
+			}
+
+			printf("sm4_key:%s len: %d\n",sm4_key.c_str(), sm4_key.size());
+			printf("sm2_public_key : %s  len: %d\n",sm2_public_key.c_str(), sm2_public_key.size());
+		}
+		//TODO
+#if 0
+		if(!sm4_key.empty() && 16 == sm4_key.size())
+		{
+			encryptionKey = sm4_key;
+		}
+		if(!sm2_public_key.empty())
+		{
+			Sm2PublicKey = sm2_public_key;
+		}
+#endif
+	}
+
+
 	// Create mutex
 	m_oMutex = new OTMutex();
 	if(!m_oMutex)
@@ -297,8 +553,6 @@ OTRecorderFFmpeg::OTRecorderFFmpeg(bool isEncryption,std::string encryptionKey, 
 		return;
 	}
 	
-	std::string temp_key("01234567890abcef");
-	Sm4Key= temp_key;
 	fp_clzhan = fopen("./1.txt", "w+");
 
 	
@@ -685,7 +939,6 @@ int OTRecorderFFmpeg::PutAudioDataSM4ToStream(uint8_t * buffer, int size, int st
 	// size ? 8
 	if(size > 4)
 	{
-		printf("key = %s \n", Sm4Key.data());
 
 		//unsigned char key[] = "01234567890abcef";
 
@@ -1020,6 +1273,19 @@ bool OTRecorderFFmpeg::close(OTMediaType_t eMediaType)
 	}
 
 	fclose(fp_clzhan);
+		
+	
+	//post
+
+	//HttpPost(const std::string & strUrl, const std::string & strMeetingNO, const std::string & Path , std::string & strResponse)
+
+	std::string strResponse;
+	HttpPost(m_strRecordOpenFireServlet, m_strConferenceId, m_strFilePath, strResponse);
+	if(!strResponse.empty())
+	{
+		printf(" strResponse: %s\n", strResponse.c_str());
+	}
+
 
 	return true;
 }
@@ -1286,8 +1552,12 @@ extern void write_webm_block(struct EbmlGlobal *glob,
                  const void* dataPtr, size_t dataSize);
 extern void write_webm_file_footer(EbmlGlobal *glob, long hash);
 
-OTRecorderWebM::OTRecorderWebM(bool isEncryption,std::string encryptionKey, std::string Sm2PublicKey, std::string strFilePath, OTMediaType_t eMediaType)
-: OTRecorder(isEncryption, encryptionKey, Sm2PublicKey, strFilePath, eMediaType)
+OTRecorderWebM::OTRecorderWebM(bool isEncryption,std::string encryptionKey, std::string Sm2PublicKey, 
+											std::string strRecordOpenFireServlet, 
+											std::string strRecordFile,
+											std::string strConferenceId,
+											std::string strFilePath, OTMediaType_t eMediaType)
+: OTRecorder(isEncryption, encryptionKey, Sm2PublicKey, strRecordOpenFireServlet,strRecordFile,strConferenceId,strFilePath, eMediaType)
 , m_pFile(NULL)
 , m_pGlob(NULL)
 , m_nVideoWidth(0)

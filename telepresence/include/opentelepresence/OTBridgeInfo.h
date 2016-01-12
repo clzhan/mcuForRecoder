@@ -62,7 +62,9 @@ public:
 	OT_INLINE std::string getRecordFilePath(){ return m_strRecordFilePath; }
 	OT_INLINE std::string getRecordEncryptionKey(){ return m_strRecordEncryptionKey; }
 	OT_INLINE std::string getRecordSm2Key(){ return m_strRecordSm2Key; }
+	OT_INLINE std::string setRecordSm2Key(std::string strRecordSm2Key){ m_strRecordSm2Key = strRecordSm2Key; }
 	OT_INLINE std::string getRecordOpenFireServlet(){ return m_strRecordOpenFireServlet; }
+	OT_INLINE std::string setRecordEncryptionKey(std::string strRecordEncryptionKey){ m_strRecordEncryptionKey = m_strRecordEncryptionKey; }
 
 	OT_INLINE uint16_t getAudioBitsPerSample(){ return m_nAudioBitsPerSample; }
 	OT_INLINE uint16_t getAudioChannels(){ return m_nAudioChannels; }

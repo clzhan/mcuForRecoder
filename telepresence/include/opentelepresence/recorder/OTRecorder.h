@@ -17,7 +17,11 @@
 class OTRecorder : public OTObject
 {
 protected:
-	OTRecorder(bool isEncryption,std::string encryptionKey, std::string Sm2PublicKey,std::string strFilePath, OTMediaType_t eMediaType);
+	OTRecorder(bool isEncryption,std::string encryptionKey, std::string Sm2PublicKey,
+										std::string strRecordOpenFireServlet, 
+										std::string strRecordFile,
+										std::string strConferenceId,
+										std::string strFilePath, OTMediaType_t eMediaType);
 public:
 	virtual ~OTRecorder();
 	virtual OT_INLINE const char* getObjectId() { return "OTRecorder"; }
@@ -31,12 +35,20 @@ public:
 	virtual bool writeRawAudioPayload(const void* rtpPayPtr, size_t rtpPaySize) = 0;
 	virtual bool close(OTMediaType_t eMediaType) = 0;
 
-	static OTObjectWrapper<OTRecorder*> New(bool isEncryption,std::string encryptionKey, std::string Sm2PublicKey,std::string strFilePath, OTMediaType_t eMediaType);
+	static OTObjectWrapper<OTRecorder*> New(bool isEncryption,std::string encryptionKey, std::string Sm2PublicKey,
+																						 std::string strRecordOpenFireServlet, 
+																						 std::string strRecordFile,
+																						 std::string strConferenceId,
+																						 std::string strFilePath, 
+																						 OTMediaType_t eMediaType);
 
 protected:
 	bool isEncryption;
-	std::string encryptionKey;
+	std::string encryptionKey; //AES or SM4
 	std::string Sm2PublicKey;
+	std::string m_strRecordOpenFireServlet;
+	std::string m_strRecordFile;   //120100_20160112 filename
+	std::string m_strConferenceId; //120100
 	std::string m_strFilePath;
 	OTMediaType_t m_eMediaType;
 };

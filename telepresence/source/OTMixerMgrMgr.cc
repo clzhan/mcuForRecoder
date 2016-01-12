@@ -14,8 +14,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-
-static std::string int2str(int i) {
+static std::string int2str(int i) { 
 
 	std::stringstream ss;
 	ss << i;
@@ -24,32 +23,33 @@ static std::string int2str(int i) {
 }
 static int create_multi_dir(const char *path)
 {
-	int i, len;
+	int i, len; 
 	len = strlen(path);
 	char dir_path[len+1];
 	dir_path[len] = '\0';
 
 	strncpy(dir_path, path, len);
 
-	for (i=0; i<len; i++)
-	{
-		if (dir_path[i] == '/' && i > 0)
-		{
+	for (i=0; i<len; i++) 
+	{    
+		if (dir_path[i] == '/' && i > 0) 
+		{    
 			dir_path[i]='\0';
-			if (access(dir_path, F_OK) < 0)
-			{
-				if (mkdir(dir_path, 0755) < 0)
-				{
+			if (access(dir_path, F_OK) < 0) 
+			{    
+				if (mkdir(dir_path, 0755) < 0) 
+				{    
 					printf("mkdir=%s:msg=%s\n", dir_path, strerror(errno));
 					return -1;
-				}
-			}
+				}    
+			}    
 			dir_path[i]='/';
-		}
-	}
+		}    
+	}    
 
 	return 0;
 }
+
 
 
 OTMixerMgrMgr::OTMixerMgrMgr(OTMediaType_t eMediaType, OTObjectWrapper<OTBridgeInfo*> oBridgeInfo)
@@ -62,12 +62,6 @@ OTMixerMgrMgr::OTMixerMgrMgr(OTMediaType_t eMediaType, OTObjectWrapper<OTBridgeI
 	// create recorder if enabled
 	if(oBridgeInfo->isRecordEnabled())
 	{
-
-
-		// get 120100's sm4key and sm2key or use default key
-		
-
-
 
 		//mkdir /mnt/2016/1/9/120100/
 
@@ -91,23 +85,15 @@ OTMixerMgrMgr::OTMixerMgrMgr(OTMediaType_t eMediaType, OTObjectWrapper<OTBridgeI
 
 		//new  recoder
 		
-		if(oBridgeInfo->isRecordEncryptionEnabled())
-		{
-			printf("---------------------clzhan -------------------------isRecordEncryptionEnabled \n");
-
-		}
 		std::string encryptionKey = oBridgeInfo->getRecordEncryptionKey();
 		printf("KEY = %s \n", encryptionKey.data());
 
+		m_oRecorder = OTRecorder::New(oBridgeInfo->isRecordEncryptionEnabled(),oBridgeInfo->getRecordEncryptionKey() ,oBridgeInfo->getRecordSm2Key(), 
+																									oBridgeInfo->getRecordOpenFireServlet(), 
+																									oBridgeInfo->getId(),
+																									oBridgeInfo->getFromId(),
+																									strRecordFile, eMediaType);
 
-		bool isEncryption = true;
-		//std::string encryptionKey("01234567890acdf");
-		std::string Sm2PublicKey("01234567890acdf");
-
-		m_oRecorder = OTRecorder::New(oBridgeInfo->isRecordEncryptionEnabled(),oBridgeInfo->getRecordEncryptionKey() ,Sm2PublicKey, strRecordFile, eMediaType);
-
-		printf("from id = %s\n", oBridgeInfo->getFromId().data());
-		printf("id = %s\n", oBridgeInfo->getId().data());
 	}
 
 	if(m_eMediaType & OTMediaType_Audio)
