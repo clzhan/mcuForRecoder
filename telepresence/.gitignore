@@ -1,0 +1,16 @@
+*.mp4
+*.h264
+*.o
+*.txt
+.deps
+!config*
+*.swp
+autom4te*
+Makefile
+autom4te.cache/traces.0
+.dep
+.deps
+!config.*
+autom4te.cache/*
+!configure*
+

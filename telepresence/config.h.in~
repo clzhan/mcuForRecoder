@@ -1,0 +1,171 @@
+/* config.h.in.  Generated from configure.ac by autoheader.  */
+
+/* Define to 1 if you have the <AL/alc.h> header file. */
+#undef HAVE_AL_ALC_H
+
+/* Define to 1 if you have the <AL/alext.h> header file. */
+#undef HAVE_AL_ALEXT_H
+
+/* Define to 1 if you have the <AL/al.h> header file. */
+#undef HAVE_AL_AL_H
+
+/* Define to 1 if you have the <com/sun/star/bridge/XUnoUrlResolver.hpp>
+   header file. */
+#undef HAVE_COM_SUN_STAR_BRIDGE_XUNOURLRESOLVER_HPP
+
+/* Define to 1 if you have the <errno.h> header file. */
+#undef HAVE_ERRNO_H
+
+/* Define to 1 if you have the `execl' function. */
+#undef HAVE_EXECL
+
+/* HAVE_FFMPEG */
+#undef HAVE_FFMPEG
+
+/* Define to 1 if you have the `fork' function. */
+#undef HAVE_FORK
+
+/* Define to 1 if you have the <inttypes.h> header file. */
+#undef HAVE_INTTYPES_H
+
+/* Define to 1 if you have the <libavcodec/avcodec.h> header file. */
+#undef HAVE_LIBAVCODEC_AVCODEC_H
+
+/* Define to 1 if you have the <libavfilter/avfilter.h> header file. */
+#undef HAVE_LIBAVFILTER_AVFILTER_H
+
+/* Define to 1 if you have the <libavformat/avformat.h> header file. */
+#undef HAVE_LIBAVFORMAT_AVFORMAT_H
+
+/* Define to 1 if you have the <libavutil/avutil.h> header file. */
+#undef HAVE_LIBAVUTIL_AVUTIL_H
+
+/* Define to 1 if you have the <libswresample/swresample.h> header file. */
+#undef HAVE_LIBSWRESAMPLE_SWRESAMPLE_H
+
+/* Define to 1 if you have the <libswscale/swscale.h> header file. */
+#undef HAVE_LIBSWSCALE_SWSCALE_H
+
+/* Define to 1 if you have the <memory.h> header file. */
+#undef HAVE_MEMORY_H
+
+/* HAVE_OPENAL */
+#undef HAVE_OPENAL
+
+/* HAVE_OPENOFFICE */
+#undef HAVE_OPENOFFICE
+
+/* Define to 1 if you have the `pclose' function. */
+#undef HAVE_PCLOSE
+
+/* Define to 1 if you have the `popen' function. */
+#undef HAVE_POPEN
+
+/* Define to 1 if you have the `posix_spawn' function. */
+#undef HAVE_POSIX_SPAWN
+
+/* Define to 1 if you have the `setpgid' function. */
+#undef HAVE_SETPGID
+
+/* Define to 1 if you have the <spawn.h> header file. */
+#undef HAVE_SPAWN_H
+
+/* Define to 1 if you have the <stdint.h> header file. */
+#undef HAVE_STDINT_H
+
+/* Define to 1 if you have the <stdlib.h> header file. */
+#undef HAVE_STDLIB_H
+
+/* Define to 1 if you have the <strings.h> header file. */
+#undef HAVE_STRINGS_H
+
+/* Define to 1 if you have the <string.h> header file. */
+#undef HAVE_STRING_H
+
+/* Define to 1 if you have the <sys/stat.h> header file. */
+#undef HAVE_SYS_STAT_H
+
+/* Define to 1 if you have the <sys/types.h> header file. */
+#undef HAVE_SYS_TYPES_H
+
+/* Define to 1 if you have the <sys/wait.h> header file. */
+#undef HAVE_SYS_WAIT_H
+
+/* Define to 1 if you have the <tinybfcp/tinybfcp_config.h> header file. */
+#undef HAVE_TINYBFCP_TINYBFCP_CONFIG_H
+
+/* Define to 1 if you have the <tinydav/tinydav_config.h> header file. */
+#undef HAVE_TINYDAV_TINYDAV_CONFIG_H
+
+/* Define to 1 if you have the <tinyhttp/tinyhttp_config.h> header file. */
+#undef HAVE_TINYHTTP_TINYHTTP_CONFIG_H
+
+/* Define to 1 if you have the <tinyipsec/tinyipsec_config.h> header file. */
+#undef HAVE_TINYIPSEC_TINYIPSEC_CONFIG_H
+
+/* Define to 1 if you have the <tinymedia/tinymedia_config.h> header file. */
+#undef HAVE_TINYMEDIA_TINYMEDIA_CONFIG_H
+
+/* Define to 1 if you have the <tinymsrp/tinymsrp_config.h> header file. */
+#undef HAVE_TINYMSRP_TINYMSRP_CONFIG_H
+
+/* Define to 1 if you have the <tinynet/tinynet_config.h> header file. */
+#undef HAVE_TINYNET_TINYNET_CONFIG_H
+
+/* Define to 1 if you have the <tinyrtp/tinyrtp_config.h> header file. */
+#undef HAVE_TINYRTP_TINYRTP_CONFIG_H
+
+/* Define to 1 if you have the <tinysak/tinysak_config.h> header file. */
+#undef HAVE_TINYSAK_TINYSAK_CONFIG_H
+
+/* Define to 1 if you have the <tinysdp/tinysdp_config.h> header file. */
+#undef HAVE_TINYSDP_TINYSDP_CONFIG_H
+
+/* Define to 1 if you have the <tinysigcomp/tinysigcomp_config.h> header file.
+   */
+#undef HAVE_TINYSIGCOMP_TINYSIGCOMP_CONFIG_H
+
+/* Define to 1 if you have the <tinysip/tinysip_config.h> header file. */
+#undef HAVE_TINYSIP_TINYSIP_CONFIG_H
+
+/* Define to 1 if you have the <tinysms/tinysms_config.h> header file. */
+#undef HAVE_TINYSMS_TINYSMS_CONFIG_H
+
+/* Define to 1 if you have the <tinyxcap/tinyxcap_config.h> header file. */
+#undef HAVE_TINYXCAP_TINYXCAP_CONFIG_H
+
+/* Define to 1 if you have the <unistd.h> header file. */
+#undef HAVE_UNISTD_H
+
+/* Define to 1 if you have the `vfork' function. */
+#undef HAVE_VFORK
+
+/* Define to 1 if you have the `waitpid' function. */
+#undef HAVE_WAITPID
+
+/* Name of package */
+#undef PACKAGE
+
+/* Define to the address where bug reports for this package should be sent. */
+#undef PACKAGE_BUGREPORT
+
+/* Define to the full name of this package. */
+#undef PACKAGE_NAME
+
+/* Define to the full name and version of this package. */
+#undef PACKAGE_STRING
+
+/* Define to the one symbol short name of this package. */
+#undef PACKAGE_TARNAME
+
+/* Define to the home page for this package. */
+#undef PACKAGE_URL
+
+/* Define to the version of this package. */
+#undef PACKAGE_VERSION
+
+/* Define to 1 if you have the ANSI C header files. */
+#undef STDC_HEADERS
+
+/* Version number of package */
+#undef VERSION
